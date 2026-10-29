@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DP-Synth Health - Mobile Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=JetBrains+Mono:wght@500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary": "#006b5e",
+                        "inverse-surface": "#263238",
+                        "primary-fixed-dim": "#bcc2ff",
+                        "on-tertiary-fixed": "#2b1700",
+                        "on-tertiary-fixed-variant": "#663d00",
+                        "surface-variant": "#d7e4ec",
+                        "on-secondary-fixed-variant": "#005047",
+                        "on-primary-fixed": "#000c62",
+                        "surface": "#f4faff",
+                        "tertiary": "#3f2400",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed": "#00201b",
+                        "secondary-fixed-dim": "#7ad7c6",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed": "#97f3e2",
+                        "inverse-primary": "#bcc2ff",
+                        "on-surface-variant": "#454652",
+                        "surface-bright": "#f4faff",
+                        "surface-container-low": "#e9f6fd",
+                        "on-primary-fixed-variant": "#303c9a",
+                        "secondary-container": "#94f0df",
+                        "surface-container-highest": "#d7e4ec",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#cfdce4",
+                        "on-secondary-container": "#006f62",
+                        "primary": "#0b1a7d",
+                        "tertiary-fixed": "#ffddba",
+                        "primary-container": "#283593",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-container": "#f19700",
+                        "tertiary-fixed-dim": "#ffb865",
+                        "surface-container-high": "#ddeaf2",
+                        "on-primary-container": "#9aa5ff",
+                        "on-error-container": "#93000a",
+                        "on-error": "#ffffff",
+                        "tertiary-container": "#5d3700",
+                        "on-tertiary": "#ffffff",
+                        "on-background": "#111d23",
+                        "surface-container": "#e3f0f8",
+                        "on-surface": "#111d23",
+                        "primary-fixed": "#dfe0ff",
+                        "outline": "#767683",
+                        "outline-variant": "#c6c5d4",
+                        "surface-tint": "#4955b3",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-on-surface": "#e6f3fb",
+                        "background": "#f4faff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "16px",
+                        "xl": "48px",
+                        "lg": "24px",
+                        "margin": "24px",
+                        "unit": "4px",
+                        "md": "16px",
+                        "sm": "8px",
+                        "xs": "4px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "label-mono": ["JetBrains Mono"],
+                        "headline-lg-mobile": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "metric-lg": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-mono": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["26px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-sm": ["12px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "metric-lg": ["24px", { "lineHeight": "32px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col pt-16 pb-[72px]">
+<!-- TopAppBar Mobile Adaptation (Derived from JSON) -->
+<header class="fixed top-0 left-0 w-full z-50 bg-surface-container-lowest dark:bg-surface-container-highest border-b border-outline-variant dark:border-outline flex justify-between items-center h-16 px-gutter shadow-sm transition-transform duration-300">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary dark:text-inverse-primary" data-icon="security" style="font-variation-settings: 'FILL' 1;">security</span>
+<span class="text-headline-sm font-headline-sm font-bold text-primary dark:text-inverse-primary tracking-tight">DP-Synth Health</span>
+</div>
+<div class="flex items-center gap-md">
+<button class="relative p-2 rounded-full hover:bg-surface-container-high dark:hover:bg-surface-container transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+<span class="material-symbols-outlined text-on-surface-variant dark:text-on-surface" data-icon="notifications">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 bg-error rounded-full ring-2 ring-surface-container-lowest"></span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant dark:border-outline">
+<img alt="Researcher Profile" class="w-full h-full object-cover" data-alt="A professional headshot of a data scientist or researcher, clean background, high-key lighting, modern corporate style, authoritative yet approachable. The image should fit within an academic or high-tech security context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBuTSNh-Hp1rmPUUaUlDpLOCzDLtsbr-AenLKlMnJloLvANqpm4zzF8F_BqOXzoiW0oUUnGy0NwS5PJ7Pd5MIDuYHvHtIYBXf7pQeAPpE_WRKvhfmlz1EyUytHYnbsRr3vbGVh2YNoZCcZpuFtnUyfUmpwdgLHwnNEwX4g2sLOEyYurNhMjT90-Rd555Wk7CNHIj9uislEJtpLlLXxfAjUFF9YiZjksKc_2sx6jtf5S8xx4xJYpT8I"/>
+</div>
+</div>
+</header>
+<main class="flex-1 px-gutter py-md space-y-lg max-w-lg mx-auto w-full">
+<!-- Global Privacy Status Section -->
+<section class="space-y-sm">
+<h2 class="text-headline-sm font-headline-sm text-on-surface">Global Privacy Status</h2>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-md shadow-sm">
+<div class="flex justify-between items-start mb-md">
+<div>
+<p class="text-body-sm font-body-sm text-on-surface-variant uppercase tracking-wider">Current Budget</p>
+<div class="flex items-baseline gap-xs mt-xs">
+<span class="text-metric-lg font-metric-lg text-primary">ε = 0.85</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant">/ 1.00</span>
+</div>
+</div>
+<div class="bg-secondary-container text-on-secondary-container px-sm py-xs rounded-full flex items-center gap-xs">
+<span class="material-symbols-outlined text-sm" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-label-mono font-label-mono">Healthy</span>
+</div>
+</div>
+<div class="w-full bg-surface-container-highest rounded-full h-2 mb-xs overflow-hidden">
+<div class="bg-primary h-2 rounded-full transition-all duration-500 ease-out" style="width: 85%"></div>
+</div>
+<p class="text-label-mono font-label-mono text-on-surface-variant text-right">85% Consumed</p>
+</div>
+</section>
+<!-- Active Synthesis Runs -->
+<section class="space-y-sm">
+<div class="flex justify-between items-center">
+<h2 class="text-headline-sm font-headline-sm text-on-surface">Active Synthesis Runs</h2>
+<button class="text-body-sm font-body-sm text-primary hover:underline">View All</button>
+</div>
+<div class="space-y-md">
+<!-- Run Item 1 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-md shadow-sm flex flex-col gap-sm">
+<div class="flex justify-between items-start">
+<div>
+<div class="flex items-center gap-xs mb-xs">
+<span class="material-symbols-outlined text-secondary text-sm" data-icon="sync" style="font-variation-settings: 'FILL' 1;">sync</span>
+<span class="text-body-md font-body-md font-semibold text-on-surface">Patient_Cohort_A</span>
+</div>
+<span class="bg-surface-container text-on-surface-variant text-label-mono font-label-mono px-2 py-1 rounded">CTGAN-v1</span>
+</div>
+<button class="p-1.5 rounded bg-surface-container hover:bg-surface-container-high transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined text-sm" data-icon="pause">pause</span>
+</button>
+</div>
+<div>
+<div class="flex justify-between text-body-sm font-body-sm text-on-surface-variant mb-xs">
+<span>Epoch 42/100</span>
+<span class="font-label-mono">42%</span>
+</div>
+<div class="w-full bg-surface-container-highest rounded-full h-1.5 overflow-hidden">
+<div class="bg-secondary h-1.5 rounded-full transition-all duration-1000 ease-linear" style="width: 42%"></div>
+</div>
+</div>
+</div>
+<!-- Run Item 2 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-md shadow-sm flex flex-col gap-sm">
+<div class="flex justify-between items-start">
+<div>
+<div class="flex items-center gap-xs mb-xs">
+<span class="material-symbols-outlined text-secondary text-sm" data-icon="sync" style="font-variation-settings: 'FILL' 1;">sync</span>
+<span class="text-body-md font-body-md font-semibold text-on-surface">Financial_Tx_Q3</span>
+</div>
+<span class="bg-surface-container text-on-surface-variant text-label-mono font-label-mono px-2 py-1 rounded">DP-XGBoost</span>
+</div>
+<button class="p-1.5 rounded bg-surface-container hover:bg-surface-container-high transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined text-sm" data-icon="pause">pause</span>
+</button>
+</div>
+<div>
+<div class="flex justify-between text-body-sm font-body-sm text-on-surface-variant mb-xs">
+<span>Tree Building</span>
+<span class="font-label-mono">89%</span>
+</div>
+<div class="w-full bg-surface-container-highest rounded-full h-1.5 overflow-hidden">
+<div class="bg-secondary h-1.5 rounded-full transition-all duration-1000 ease-linear" style="width: 89%"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Security Alerts -->
+<section class="space-y-sm">
+<div class="flex justify-between items-center">
+<h2 class="text-headline-sm font-headline-sm text-on-surface flex items-center gap-xs">
+                    Security Alerts
+                    <span class="bg-error-container text-on-error-container text-label-mono font-label-mono px-2 py-0.5 rounded-full">1 New</span>
+</h2>
+</div>
+<div class="bg-surface-container-lowest border border-error-container rounded-lg p-md shadow-sm relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-error"></div>
+<div class="flex items-start gap-sm pl-2">
+<span class="material-symbols-outlined text-error mt-0.5" data-icon="warning" style="font-variation-settings: 'FILL' 1;">warning</span>
+<div>
+<h3 class="text-body-md font-body-md font-semibold text-on-surface">MIA Vulnerability Detected</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-xs">High membership inference risk identified in 'Marketing_DB_Synth'. Recommended action: Increase noise multiplier.</p>
+<div class="mt-sm">
+<button class="text-body-sm font-body-sm font-semibold text-error hover:underline bg-error-container px-3 py-1.5 rounded">Review Configuration</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar Mobile Only -->
+<nav class="fixed bottom-0 left-0 w-full bg-surface-container-lowest dark:bg-surface-container-highest border-t border-outline-variant dark:border-outline pb-safe pt-2 px-md z-50 md:hidden flex justify-around items-center h-[72px]">
+<a class="flex flex-col items-center gap-1 group text-primary w-16" href="#">
+<div class="bg-primary-container text-on-primary-container px-4 py-1 rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="dashboard" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+</div>
+<span class="text-[10px] font-label-mono font-medium">Dashboard</span>
+</a>
+<a class="flex flex-col items-center gap-1 group text-on-surface-variant w-16 hover:text-on-surface" href="#">
+<div class="px-4 py-1 rounded-full group-hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined" data-icon="sync">sync</span>
+</div>
+<span class="text-[10px] font-label-mono font-medium">Runs</span>
+</a>
+<a class="flex flex-col items-center gap-1 group text-on-surface-variant w-16 hover:text-on-surface relative" href="#">
+<div class="px-4 py-1 rounded-full group-hover:bg-surface-container transition-colors relative">
+<span class="material-symbols-outlined" data-icon="security">security</span>
+<span class="absolute top-1 right-2 w-2 h-2 bg-error rounded-full"></span>
+</div>
+<span class="text-[10px] font-label-mono font-medium">Alerts</span>
+</a>
+<a class="flex flex-col items-center gap-1 group text-on-surface-variant w-16 hover:text-on-surface" href="#">
+<div class="px-4 py-1 rounded-full group-hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</div>
+<span class="text-[10px] font-label-mono font-medium">Settings</span>
+</a>
+</nav>
+<!-- Support for safe area padding on mobile -->
+<style>
+        .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+    </style>
+</body></html>

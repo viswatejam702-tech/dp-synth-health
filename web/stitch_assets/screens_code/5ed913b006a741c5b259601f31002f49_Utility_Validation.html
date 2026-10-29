@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Utility Validation - DP-Synth Health</title>
+<!-- Tailwind CSS & Plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-container": "#006f62",
+                        "primary-container": "#283593",
+                        "on-surface": "#111d23",
+                        "on-primary-fixed-variant": "#303c9a",
+                        "error-container": "#ffdad6",
+                        "surface-tint": "#4955b3",
+                        "on-primary-fixed": "#000c62",
+                        "on-tertiary-container": "#f19700",
+                        "on-surface-variant": "#454652",
+                        "tertiary": "#3f2400",
+                        "inverse-on-surface": "#e6f3fb",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb865",
+                        "surface": "#f4faff",
+                        "on-background": "#111d23",
+                        "on-primary": "#ffffff",
+                        "tertiary-container": "#5d3700",
+                        "on-secondary-fixed-variant": "#005047",
+                        "surface-bright": "#f4faff",
+                        "outline-variant": "#c6c5d4",
+                        "surface-container-high": "#ddeaf2",
+                        "on-tertiary-fixed": "#2b1700",
+                        "surface-container-low": "#e9f6fd",
+                        "background": "#f4faff",
+                        "primary": "#0b1a7d",
+                        "on-primary-container": "#9aa5ff",
+                        "inverse-surface": "#263238",
+                        "on-tertiary-fixed-variant": "#663d00",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed": "#ffddba",
+                        "on-secondary-fixed": "#00201b",
+                        "on-error": "#ffffff",
+                        "secondary-container": "#94f0df",
+                        "outline": "#767683",
+                        "surface-container-highest": "#d7e4ec",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#dfe0ff",
+                        "secondary-fixed": "#97f3e2",
+                        "on-tertiary": "#ffffff",
+                        "surface-dim": "#cfdce4",
+                        "surface-container": "#e3f0f8",
+                        "inverse-primary": "#bcc2ff",
+                        "secondary": "#006b5e",
+                        "surface-variant": "#d7e4ec",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed-dim": "#7ad7c6",
+                        "primary-fixed-dim": "#bcc2ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin": "24px",
+                        "lg": "24px",
+                        "xs": "4px",
+                        "xl": "48px",
+                        "md": "16px",
+                        "gutter": "16px",
+                        "unit": "4px",
+                        "sm": "8px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-mono": ["JetBrains Mono"],
+                        "metric-lg": ["JetBrains Mono"],
+                        "headline-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["12px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-mono": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "metric-lg": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["26px", { "lineHeight": "32px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        /* Grid baseline for alignment */
+        .bg-grid { background-size: 100% 4px; background-image: linear-gradient(to bottom, transparent 3px, rgba(0,0,0,0.05) 4px); }
+    </style>
+</head>
+<body class="bg-surface text-on-surface antialiased font-body-md h-screen overflow-hidden flex light">
+<!-- SideNavBar (Shared Component) -->
+<nav class="fixed left-0 top-0 h-full w-[240px] border-r border-outline-variant dark:border-outline bg-surface dark:bg-inverse-surface flex flex-col h-screen py-md z-20">
+<!-- Header -->
+<div class="px-margin mb-xl">
+<div class="flex items-center gap-sm mb-md">
+<span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">science</span>
+<h1 class="text-headline-md font-headline-md font-semibold text-primary dark:text-inverse-primary">DP-Synth Health</h1>
+</div>
+<p class="text-label-mono font-label-mono text-on-surface-variant">V3.4 Privacy Core</p>
+</div>
+<!-- Main Tabs -->
+<div class="flex-1 overflow-y-auto px-xs">
+<a class="flex items-center gap-sm py-sm px-sm mb-xs text-on-surface-variant dark:text-on-surface hover:bg-surface-container-high dark:hover:bg-surface-container transition-colors duration-150 rounded-lg mx-2 text-body-md font-body-md" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                Project Overview
+            </a>
+<a class="flex items-center gap-sm py-sm px-sm mb-xs text-on-surface-variant dark:text-on-surface hover:bg-surface-container-high dark:hover:bg-surface-container transition-colors duration-150 rounded-lg mx-2 text-body-md font-body-md" href="#">
+<span class="material-symbols-outlined">settings_input_component</span>
+                Generation Config
+            </a>
+<a class="flex items-center gap-sm py-sm px-sm mb-xs bg-primary-container dark:bg-primary text-on-primary-container dark:text-on-primary rounded-lg mx-2 opacity-80 transition-opacity text-body-md font-body-md" href="#">
+<span class="material-symbols-outlined">analytics</span>
+                Utility Metrics
+            </a>
+<a class="flex items-center gap-sm py-sm px-sm mb-xs text-on-surface-variant dark:text-on-surface hover:bg-surface-container-high dark:hover:bg-surface-container transition-colors duration-150 rounded-lg mx-2 text-body-md font-body-md" href="#">
+<span class="material-symbols-outlined">security</span>
+                Privacy Validation
+            </a>
+<a class="flex items-center gap-sm py-sm px-sm mb-xs text-on-surface-variant dark:text-on-surface hover:bg-surface-container-high dark:hover:bg-surface-container transition-colors duration-150 rounded-lg mx-2 text-body-md font-body-md" href="#">
+<span class="material-symbols-outlined">file_download</span>
+                Results &amp; Export
+            </a>
+</div>
+<!-- CTA & Footer -->
+<div class="px-margin mt-auto pt-lg border-t border-outline-variant">
+<button class="w-full bg-primary text-on-primary rounded-DEFAULT py-sm mb-md text-body-md font-body-md font-medium hover:bg-primary-container transition-colors shadow-sm">
+                Run Synthesis
+            </button>
+<div class="flex flex-col gap-xs">
+<a class="flex items-center gap-sm py-unit text-on-surface-variant hover:text-primary transition-colors text-body-md font-body-md" href="#">
+<span class="material-symbols-outlined text-[18px]">help</span>
+                    Documentation
+                </a>
+<a class="flex items-center gap-sm py-unit text-on-surface-variant hover:text-primary transition-colors text-body-md font-body-md" href="#">
+<span class="material-symbols-outlined text-[18px]">contact_support</span>
+                    Support
+                </a>
+</div>
+</div>
+</nav>
+<!-- TopAppBar (Shared Component) -->
+<header class="fixed top-0 flex justify-between items-center h-16 w-full px-lg ml-[240px] w-[calc(100%-240px)] bg-surface-container-lowest dark:bg-surface-container-highest border-b border-outline-variant dark:border-outline z-10">
+<div class="flex items-center gap-md">
+<h2 class="text-headline-sm font-headline-sm font-bold text-primary dark:text-inverse-primary">Privacy Workbench</h2>
+</div>
+<div class="flex items-center gap-xl">
+<!-- Navigation Links (Budget Chip) -->
+<div class="bg-surface-container px-sm py-unit rounded-full border border-outline-variant flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">account_balance_wallet</span>
+<span class="text-label-mono font-label-mono text-on-surface-variant">Current Budget: ε=0.85</span>
+</div>
+<!-- Actions -->
+<div class="flex items-center gap-sm text-on-surface-variant dark:text-on-surface-variant">
+<button class="p-unit hover:text-primary dark:hover:text-inverse-primary transition-colors hover:scale-[0.99] active:scale-[0.95]">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-unit hover:text-primary dark:hover:text-inverse-primary transition-colors hover:scale-[0.99] active:scale-[0.95]">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<button class="p-unit hover:text-primary dark:hover:text-inverse-primary transition-colors hover:scale-[0.99] active:scale-[0.95]">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-[240px] mt-16 w-full h-[calc(100vh-64px)] overflow-y-auto bg-background p-xl">
+<div class="max-w-7xl mx-auto">
+<!-- Header Section -->
+<div class="mb-xl">
+<h2 class="text-headline-lg font-headline-lg text-on-surface mb-xs">TSTR (Train-Synthetic-Test-Real) Protocol</h2>
+<p class="text-body-lg font-body-lg text-on-surface-variant max-w-3xl">
+                    Evaluating the downstream utility of differentially private synthetic data against a holdout set of real patient records. The goal is to measure the utility decay introduced by the privacy budget (ε).
+                </p>
+</div>
+<!-- Dashboard Grid -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Chart Area: The Utility Gap (Spans 8 cols) -->
+<div class="col-span-12 lg:col-span-8 bg-surface-container-lowest border border-outline-variant rounded-lg p-lg flex flex-col">
+<div class="flex justify-between items-center mb-md border-b border-outline-variant pb-sm">
+<h3 class="text-headline-sm font-headline-sm text-on-surface">AUC Performance Gap Analysis</h3>
+<span class="px-sm py-unit bg-primary-container text-on-primary-container text-label-mono font-label-mono rounded-DEFAULT">Metric: Area Under ROC</span>
+</div>
+<!-- Custom CSS Bar Chart Implementation -->
+<div class="flex-1 flex items-end justify-center gap-xl h-[300px] mt-md relative">
+<!-- Y-Axis Lines -->
+<div class="absolute inset-0 flex flex-col justify-between pointer-events-none border-l border-b border-outline-variant pb-[40px] pl-[40px]">
+<div class="w-full border-t border-outline-variant opacity-30 h-0"><span class="absolute -left-8 -top-3 text-label-mono font-label-mono text-on-surface-variant">1.0</span></div>
+<div class="w-full border-t border-outline-variant opacity-30 h-0"><span class="absolute -left-8 -top-3 text-label-mono font-label-mono text-on-surface-variant">0.8</span></div>
+<div class="w-full border-t border-outline-variant opacity-30 h-0"><span class="absolute -left-8 -top-3 text-label-mono font-label-mono text-on-surface-variant">0.6</span></div>
+<div class="w-full border-t border-outline-variant opacity-30 h-0"><span class="absolute -left-8 -top-3 text-label-mono font-label-mono text-on-surface-variant">0.4</span></div>
+<div class="w-full border-t border-outline-variant opacity-30 h-0"><span class="absolute -left-8 -top-3 text-label-mono font-label-mono text-on-surface-variant">0.2</span></div>
+</div>
+<!-- Bar 1: Real Data -->
+<div class="flex flex-col items-center group z-10 pb-[40px]">
+<span class="text-metric-lg font-metric-lg text-secondary mb-sm opacity-0 group-hover:opacity-100 transition-opacity">0.94</span>
+<div class="w-[80px] bg-secondary rounded-t-DEFAULT shadow-[inset_0_-2px_0_rgba(0,0,0,0.1)] transition-all duration-300" style="height: 94%;"></div>
+<span class="mt-sm text-body-sm font-body-sm text-on-surface font-medium whitespace-nowrap">Real Data</span>
+</div>
+<!-- Bar 2: Synthetic-Safe -->
+<div class="flex flex-col items-center group z-10 pb-[40px]">
+<span class="text-metric-lg font-metric-lg text-surface-tint mb-sm opacity-0 group-hover:opacity-100 transition-opacity">0.91</span>
+<div class="w-[80px] bg-surface-tint rounded-t-DEFAULT shadow-[inset_0_-2px_0_rgba(0,0,0,0.1)] transition-all duration-300" style="height: 91%;"></div>
+<span class="mt-sm text-body-sm font-body-sm text-on-surface font-medium whitespace-nowrap">Synthetic-Safe</span>
+</div>
+<!-- Bar 3: DP-Synthetic -->
+<div class="flex flex-col items-center group z-10 pb-[40px]">
+<span class="text-metric-lg font-metric-lg text-primary mb-sm opacity-100 transition-opacity">0.86</span>
+<div class="w-[80px] bg-primary rounded-t-DEFAULT shadow-[inset_0_-2px_0_rgba(0,0,0,0.2)] transition-all duration-300 relative" style="height: 86%;">
+<!-- Error bar/Variance representation (visual only) -->
+<div class="absolute top-0 left-1/2 -translate-x-1/2 -mt-4 w-px h-8 bg-on-surface"></div>
+<div class="absolute top-0 left-1/2 -translate-x-1/2 -mt-4 w-3 h-px bg-on-surface"></div>
+<div class="absolute top-0 left-1/2 -translate-x-1/2 mt-4 w-3 h-px bg-on-surface"></div>
+</div>
+<span class="mt-sm text-body-sm font-body-sm text-primary font-bold whitespace-nowrap border-b border-primary">DP-Synthetic ε=0.85</span>
+</div>
+</div>
+</div>
+<!-- Right Column (Spans 4 cols) -->
+<div class="col-span-12 lg:col-span-4 flex flex-col gap-gutter">
+<!-- Code Block Card -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-md">
+<div class="flex items-center gap-xs mb-sm">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">terminal</span>
+<h4 class="text-body-md font-body-md font-medium text-on-surface">Validation Config (GBDT)</h4>
+</div>
+<div class="bg-inverse-surface rounded-DEFAULT p-sm overflow-x-auto">
+<pre class="text-label-mono font-label-mono text-inverse-on-surface text-[11px] leading-tight"><code class="language-python">
+# DP-XGBoost Parameters
+xgb_params = {
+    'max_depth': 4,
+    'learning_rate': 0.05,
+    'n_estimators': 150,
+    'privacy_budget': 0.85,
+    'tree_method': 'hist',
+    'objective': 'binary:logistic',
+    'eval_metric': 'auc'
+}
+
+# TSTR Evaluation Pipeline
+evaluator = TSTREvaluator(
+    models=[xgb_clf, rf_clf, lr_clf],
+    metrics=['auc', 'f1', 'accuracy']
+)
+results = evaluator.run(syn_train, real_test)
+</code></pre>
+</div>
+</div>
+<!-- Insight/Summary Card -->
+<div class="bg-surface-container-low border border-outline-variant rounded-lg p-md flex-1">
+<h4 class="text-body-md font-body-md font-medium text-on-surface mb-sm flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary text-[18px]">insights</span>
+                            Key Insights
+                        </h4>
+<ul class="text-body-sm font-body-sm text-on-surface-variant space-y-sm list-disc pl-md">
+<li>Utility decay is primarily observed in tail-end distributions.</li>
+<li>At <span class="font-label-mono bg-surface-container-high px-1 rounded">ε=0.85</span>, the AUC drop is <strong>~0.08</strong> compared to real data.</li>
+<li>Gradient Boosting maintains the most resilience to noise injection.</li>
+</ul>
+</div>
+</div>
+<!-- Table Area (Full width below) -->
+<div class="col-span-12 bg-surface-container-lowest border border-outline-variant rounded-lg overflow-hidden">
+<div class="p-md border-b border-outline-variant bg-surface-container-lowest flex justify-between items-center">
+<h3 class="text-headline-sm font-headline-sm text-on-surface">Downstream Classifier Performance</h3>
+<button class="flex items-center gap-xs text-secondary hover:text-on-secondary-container transition-colors text-body-sm font-body-sm border border-secondary px-sm py-unit rounded-DEFAULT">
+<span class="material-symbols-outlined text-[16px]">download</span> Export CSV
+                        </button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-high text-on-surface font-label-mono text-label-mono uppercase tracking-wider">
+<th class="py-sm px-md font-medium border-b border-outline-variant">Classifier Model</th>
+<th class="py-sm px-md font-medium border-b border-outline-variant text-right">Data Source</th>
+<th class="py-sm px-md font-medium border-b border-outline-variant text-right">AUC-ROC</th>
+<th class="py-sm px-md font-medium border-b border-outline-variant text-right">F1-Score</th>
+<th class="py-sm px-md font-medium border-b border-outline-variant text-right">Accuracy</th>
+</tr>
+</thead>
+<tbody class="text-body-md font-body-md text-on-surface-variant">
+<!-- Gradient Boosting Group -->
+<tr class="hover:bg-surface transition-colors">
+<td class="py-sm px-md border-b border-outline-variant text-on-surface font-medium" rowspan="3">Gradient Boosted Trees</td>
+<td class="py-sm px-md border-b border-outline-variant text-right">Real Data</td>
+<td class="py-sm px-md border-b border-outline-variant text-right font-label-mono">0.942</td>
+<td class="py-sm px-md border-b border-outline-variant text-right font-label-mono">0.885</td>
+<td class="py-sm px-md border-b border-outline-variant text-right font-label-mono">0.910</td>
+</tr>
+<tr class="hover:bg-surface transition-colors">
+<td class="py-sm px-md border-b border-outline-variant text-right">Synthetic-Safe</td>
+<td class="py-sm px-md border-b border-outline-variant text-right font-label-mono">0.915</td>
+<td class="py-sm px-md border-b border-outline-variant text-right font-label-mono">0.860</td>
+<td class="py-sm px-md border-b border-outline-variant text-right font-label-mono">0.892</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors bg-surface">
+<td class="py-sm px-md border-b border-outline-variant text-right text-primary font-medium">DP-Synthetic ε=0.85</td>
+<td class="py-sm px-md border-b border-outline-variant text-right font-label-mono text-primary font-semibold">0.864</td>
+<td class="py-sm px-md border-b border-outline-variant text-right font-label-mono text-primary">0.812</td>
+<td class="py-sm px-md border-b border-outline-variant text-right font-label-mono text-primary">0.845</td>
+</tr>
+<!-- Random Forest Group -->
+<tr class="hover:bg-surface transition-colors">
+<td class="py-sm px-md border-b border-outline-variant text-on-surface font-medium" rowspan="3">Random Forest</td>
+<td class="py-sm px-md border-b border-outline-variant text-right">Real Data</td>
+<td class="py-sm px-md border-b border-outline-variant text-right font-label-mono">0.928</td>
+<td class="py-sm px-md border-b border-outline-variant text-right font-label-mono">0.870</td>
+<td class="py-sm px-md border-b border-outline-variant text-right font-label-mono">0.901</td>
+</tr>
+<tr class="hover:bg-surface transition-colors">
+<td class="py-sm px-md border-b border-outline-variant text-right">Synthetic-Safe</td>
+<td class="py-sm px-md border-b border-outline-variant text-right font-label-mono">0.890</td>
+<td class="py-sm px-md border-b border-outline-variant text-right font-label-mono">0.842</td>
+<td class="py-sm px-md border-b border-outline-variant text-right font-label-mono">0.875</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors bg-surface">
+<td class="py-sm px-md border-b border-outline-variant text-right text-primary font-medium">DP-Synthetic ε=0.85</td>
+<td class="py-sm px-md border-b border-outline-variant text-right font-label-mono text-primary font-semibold">0.835</td>
+<td class="py-sm px-md border-b border-outline-variant text-right font-label-mono text-primary">0.780</td>
+<td class="py-sm px-md border-b border-outline-variant text-right font-label-mono text-primary">0.810</td>
+</tr>
+<!-- Logistic Regression Group -->
+<tr class="hover:bg-surface transition-colors">
+<td class="py-sm px-md border-b border-outline-variant text-on-surface font-medium" rowspan="3">Logistic Regression</td>
+<td class="py-sm px-md border-b border-outline-variant text-right">Real Data</td>
+<td class="py-sm px-md border-b border-outline-variant text-right font-label-mono">0.880</td>
+<td class="py-sm px-md border-b border-outline-variant text-right font-label-mono">0.820</td>
+<td class="py-sm px-md border-b border-outline-variant text-right font-label-mono">0.855</td>
+</tr>
+<tr class="hover:bg-surface transition-colors">
+<td class="py-sm px-md border-b border-outline-variant text-right">Synthetic-Safe</td>
+<td class="py-sm px-md border-b border-outline-variant text-right font-label-mono">0.865</td>
+<td class="py-sm px-md border-b border-outline-variant text-right font-label-mono">0.805</td>
+<td class="py-sm px-md border-b border-outline-variant text-right font-label-mono">0.840</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors bg-surface">
+<td class="py-sm px-md border-b border-outline-variant text-right text-primary font-medium">DP-Synthetic ε=0.85</td>
+<td class="py-sm px-md border-b border-outline-variant text-right font-label-mono text-primary font-semibold">0.810</td>
+<td class="py-sm px-md border-b border-outline-variant text-right font-label-mono text-primary">0.755</td>
+<td class="py-sm px-md border-b border-outline-variant text-right font-label-mono text-primary">0.795</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

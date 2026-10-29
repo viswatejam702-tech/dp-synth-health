@@ -1,0 +1,15 @@
+.git
+.github
+.env
+.pytest_cache
+tests/
+scratch/
+workspace/isolated_storage/
+workspace/exports/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.DS_Store
+Thumbs.db
+

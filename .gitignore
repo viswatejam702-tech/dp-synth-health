@@ -1,0 +1,33 @@
+# =====================================================================
+# DP-Synth Health • Git Ignore Configuration
+# =====================================================================
+
+# Environment variables & secrets (CRITICAL)
+.env
+.env.local
+.env.*.local
+
+# Python cache & build artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+dist/
+build/
+*.egg-info/
+
+# Logs & temporary run traces
+logs/
+*.log
+scratch/
+workspace/exports/*.csv
+
+# OS Specific
+.DS_Store
+Thumbs.db
+desktop.ini
+
+.vercel
+.env*

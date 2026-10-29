@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Results &amp; Export - DP-Synth Health</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=JetBrains+Mono:wght@500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-low": "#e9f6fd",
+                        "secondary-container": "#94f0df",
+                        "surface-variant": "#d7e4ec",
+                        "inverse-surface": "#263238",
+                        "tertiary-container": "#5d3700",
+                        "on-tertiary-fixed": "#2b1700",
+                        "on-tertiary-container": "#f19700",
+                        "surface-container-high": "#ddeaf2",
+                        "on-primary-fixed-variant": "#303c9a",
+                        "on-primary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "primary-container": "#283593",
+                        "inverse-on-surface": "#e6f3fb",
+                        "on-primary-fixed": "#000c62",
+                        "secondary": "#006b5e",
+                        "on-secondary-container": "#006f62",
+                        "on-error": "#ffffff",
+                        "primary-fixed": "#dfe0ff",
+                        "tertiary-fixed": "#ffddba",
+                        "outline": "#767683",
+                        "on-error-container": "#93000a",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed": "#97f3e2",
+                        "inverse-primary": "#bcc2ff",
+                        "surface-dim": "#cfdce4",
+                        "background": "#f4faff",
+                        "on-surface": "#111d23",
+                        "tertiary": "#3f2400",
+                        "on-secondary-fixed": "#00201b",
+                        "on-tertiary-fixed-variant": "#663d00",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb865",
+                        "surface-container-highest": "#d7e4ec",
+                        "error": "#ba1a1a",
+                        "outline-variant": "#c6c5d4",
+                        "surface-container": "#e3f0f8",
+                        "on-secondary-fixed-variant": "#005047",
+                        "on-background": "#111d23",
+                        "surface": "#f4faff",
+                        "surface-tint": "#4955b3",
+                        "primary": "#0b1a7d",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed-dim": "#7ad7c6",
+                        "on-primary-container": "#9aa5ff",
+                        "primary-fixed-dim": "#bcc2ff",
+                        "surface-bright": "#f4faff",
+                        "on-surface-variant": "#454652"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "gutter": "16px",
+                        "unit": "4px",
+                        "margin": "24px",
+                        "xl": "48px",
+                        "sm": "8px",
+                        "lg": "24px",
+                        "md": "16px"
+                    },
+                    "fontFamily": {
+                        "metric-lg": ["JetBrains Mono"],
+                        "headline-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "label-mono": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "metric-lg": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "body-sm": ["12px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["26px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "label-mono": ["12px", { "lineHeight": "16px", "fontWeight": "500" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { background-color: theme('colors.background'); color: theme('colors.on-background'); }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .material-symbols-outlined.filled { font-variation-settings: 'FILL' 1; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="antialiased min-h-screen flex flex-col pt-[72px] pb-[80px]">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 border-b border-outline-variant dark:border-outline bg-surface dark:bg-surface-dim flex items-center justify-between px-margin py-sm w-full flat no shadows">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim" data-icon="shield_lock">shield_lock</span>
+<h1 class="font-headline-md text-headline-md text-primary dark:text-primary-fixed tracking-tight">Privasynth</h1>
+</div>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant bg-surface-container-high flex items-center justify-center">
+<img alt="User profile photo" class="w-full h-full object-cover" data-alt="A close up, professional headshot of an individual representing a user profile photo, neutral lighting, modern corporate style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUFGpVM83fRADrAWUm04lphgkmo1Qg0cicYO6DP6Mqtg6V2GFNYaVDLfYwXJfSGNStD-CFWNJ1RRBOiQwELz6cCEYL3h-3rsDUSnKN9zzWLYnNoZlXKICJ-zUkOKR3_Wya1YZollf7E7cxvSgtCORevP9xA7-PyUeF-30XfrfGfSe3nXZq9wuRpl7IbiqaPWyk01e05eNcZx1Nkae01Py0Cb8PtKCUkEmtPZL-XS4x_ZgnfPXARlk"/>
+</div>
+</header>
+<main class="flex-1 px-md py-lg flex flex-col gap-lg">
+<!-- Page Title & Search -->
+<section class="flex flex-col gap-md">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Results &amp; Export</h2>
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded focus:border-primary-container focus:ring-1 focus:ring-primary-container pl-[36px] pr-sm py-sm font-body-md text-body-md text-on-surface placeholder-on-surface-variant outline-none transition-colors" placeholder="Search runs..." type="text"/>
+</div>
+</section>
+<!-- Secure Delivery Status -->
+<section class="bg-surface-container-low border border-secondary-container rounded p-md flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container shrink-0">
+<span class="material-symbols-outlined filled">lock</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface">Secure Delivery Active</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Data encrypted for HIPAA-compliant transfer.</span>
+</div>
+</section>
+<!-- Run History List -->
+<section class="flex flex-col gap-md">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded p-md flex flex-col gap-md">
+<div class="flex justify-between items-start">
+<div class="flex flex-col gap-xs">
+<span class="font-label-mono text-label-mono text-on-surface-variant">JOB ID: 89A-B24</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Patient_Cohort_A_Final</h3>
+</div>
+<span class="px-2 py-1 rounded bg-secondary-container/20 text-on-secondary-container font-label-mono text-label-mono border border-secondary-container/30">Export Ready</span>
+</div>
+<div class="grid grid-cols-2 gap-sm border-t border-b border-outline-variant py-sm">
+<div class="flex flex-col gap-unit">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Privacy (ε, δ)</span>
+<span class="font-metric-lg text-metric-lg text-primary">0.85, 1e-6</span>
+</div>
+<div class="flex flex-col gap-unit">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Utility Score</span>
+<span class="font-metric-lg text-metric-lg text-primary">94%</span>
+</div>
+</div>
+<div class="flex flex-col gap-sm">
+<button class="w-full bg-primary-container text-on-primary hover:opacity-90 transition-opacity font-body-md text-body-md rounded py-sm flex justify-center items-center gap-sm">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                        Download Synthetic CSV
+                    </button>
+<button class="w-full bg-transparent border border-secondary text-secondary hover:bg-secondary/5 transition-colors font-body-md text-body-md rounded py-sm flex justify-center items-center gap-sm">
+<span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
+                        Export Privacy Report
+                    </button>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded p-md flex flex-col gap-md">
+<div class="flex justify-between items-start">
+<div class="flex flex-col gap-xs">
+<span class="font-label-mono text-label-mono text-on-surface-variant">JOB ID: 42X-C91</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Genomic_Variant_Set_1</h3>
+</div>
+<span class="px-2 py-1 rounded bg-secondary-container/20 text-on-secondary-container font-label-mono text-label-mono border border-secondary-container/30">Export Ready</span>
+</div>
+<div class="grid grid-cols-2 gap-sm border-t border-b border-outline-variant py-sm">
+<div class="flex flex-col gap-unit">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Privacy (ε, δ)</span>
+<span class="font-metric-lg text-metric-lg text-primary">1.20, 1e-5</span>
+</div>
+<div class="flex flex-col gap-unit">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Utility Score</span>
+<span class="font-metric-lg text-metric-lg text-primary">88%</span>
+</div>
+</div>
+<div class="flex flex-col gap-sm">
+<button class="w-full bg-primary-container text-on-primary hover:opacity-90 transition-opacity font-body-md text-body-md rounded py-sm flex justify-center items-center gap-sm">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                        Download Synthetic CSV
+                    </button>
+<button class="w-full bg-transparent border border-secondary text-secondary hover:bg-secondary/5 transition-colors font-body-md text-body-md rounded py-sm flex justify-center items-center gap-sm">
+<span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
+                        Export Privacy Report
+                    </button>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-2 border-t border-outline-variant dark:border-outline bg-surface dark:bg-surface-container-lowest z-50 flat no shadows">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant p-2 hover:bg-surface-container-highest dark:hover:bg-surface-variant rounded-full scale-95 duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-body-sm text-body-sm mt-1">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container dark:bg-primary-container text-on-primary-container dark:text-on-primary-container rounded-full px-4 py-1 hover:bg-surface-container-highest dark:hover:bg-surface-variant scale-95 duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined filled" data-icon="analytics">analytics</span>
+<span class="font-body-sm text-body-sm mt-1 font-bold">Runs</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant p-2 hover:bg-surface-container-highest dark:hover:bg-surface-variant rounded-full scale-95 duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="font-body-sm text-body-sm mt-1">Alerts</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant p-2 hover:bg-surface-container-highest dark:hover:bg-surface-variant rounded-full scale-95 duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-body-sm text-body-sm mt-1">Settings</span>
+</a>
+</nav>
+</body></html>

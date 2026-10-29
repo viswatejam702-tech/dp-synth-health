@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mobile Security Settings - DP-Synth Health</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container": "#e3f0f8",
+                    "on-tertiary-fixed": "#2b1700",
+                    "surface-variant": "#d7e4ec",
+                    "on-tertiary-container": "#f19700",
+                    "on-tertiary": "#ffffff",
+                    "surface-bright": "#f4faff",
+                    "secondary-fixed-dim": "#7ad7c6",
+                    "tertiary": "#3f2400",
+                    "surface-container-low": "#e9f6fd",
+                    "on-error-container": "#93000a",
+                    "secondary": "#006b5e",
+                    "on-primary-container": "#9aa5ff",
+                    "on-tertiary-fixed-variant": "#663d00",
+                    "on-surface-variant": "#454652",
+                    "inverse-on-surface": "#e6f3fb",
+                    "primary-fixed": "#dfe0ff",
+                    "background": "#f4faff",
+                    "on-secondary-fixed-variant": "#005047",
+                    "on-secondary-container": "#006f62",
+                    "tertiary-fixed": "#ffddba",
+                    "on-background": "#111d23",
+                    "on-error": "#ffffff",
+                    "primary": "#0b1a7d",
+                    "surface-container-high": "#ddeaf2",
+                    "tertiary-fixed-dim": "#ffb865",
+                    "outline": "#767683",
+                    "inverse-primary": "#bcc2ff",
+                    "inverse-surface": "#263238",
+                    "on-primary-fixed-variant": "#303c9a",
+                    "surface": "#f4faff",
+                    "surface-container-highest": "#d7e4ec",
+                    "error-container": "#ffdad6",
+                    "surface-tint": "#4955b3",
+                    "primary-fixed-dim": "#bcc2ff",
+                    "on-secondary-fixed": "#00201b",
+                    "on-primary": "#ffffff",
+                    "surface-dim": "#cfdce4",
+                    "error": "#ba1a1a",
+                    "secondary-fixed": "#97f3e2",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-container": "#94f0df",
+                    "on-primary-fixed": "#000c62",
+                    "tertiary-container": "#5d3700",
+                    "primary-container": "#283593",
+                    "on-secondary": "#ffffff",
+                    "on-surface": "#111d23",
+                    "outline-variant": "#c6c5d4"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "lg": "24px",
+                    "md": "16px",
+                    "xs": "4px",
+                    "sm": "8px",
+                    "margin": "24px",
+                    "unit": "4px",
+                    "xl": "48px",
+                    "gutter": "16px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Inter"],
+                    "body-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "label-mono": ["JetBrains Mono"],
+                    "headline-sm": ["Inter"],
+                    "metric-lg": ["JetBrains Mono"],
+                    "headline-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["26px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-sm": ["12px", {"lineHeight": "18px", "fontWeight": "400"}],
+                    "label-mono": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "metric-lg": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom Toggle Switch Styles */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #283593; /* primary-container */
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #283593; /* primary-container */
+        }
+        /* Range Slider Styles */
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: #283593;
+            cursor: pointer;
+            margin-top: -8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #c6c5d4;
+            border-radius: 2px;
+        }
+        
+        /* Hide scrollbar for clean mobile look */
+        ::-webkit-scrollbar {
+            width: 0px;
+            background: transparent; 
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background flex justify-center min-h-screen">
+<!-- Mobile Device Container (for preview purposes, acting as the screen) -->
+<div class="w-full max-w-[428px] h-[884px] bg-surface flex flex-col relative overflow-hidden shadow-[0_0_40px_rgba(0,0,0,0.1)] md:my-xl md:h-[850px] md:rounded-[2rem] md:border-[8px] md:border-inverse-surface">
+<!-- TopAppBar (Mobile Adapted) -->
+<header class="bg-surface-container-lowest flex justify-between items-center h-16 w-full px-md flex-shrink-0 z-10 sticky top-0">
+<div class="flex items-center gap-sm">
+<button class="p-2 text-on-surface hover:bg-surface-container rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<div class="flex flex-col">
+<h1 class="text-headline-sm font-headline-sm font-bold text-primary">Privacy Workbench</h1>
+</div>
+</div>
+<div class="flex items-center gap-xs">
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</div>
+</header>
+<!-- Main Content Area - Scrollable -->
+<main class="flex-1 overflow-y-auto pb-[90px] px-md pt-lg flex flex-col gap-xl">
+<!-- Page Title -->
+<div class="flex flex-col gap-xs">
+<h2 class="text-headline-lg-mobile font-headline-lg-mobile text-on-surface">Security Settings</h2>
+<p class="text-body-md font-body-md text-on-surface-variant">Manage global privacy parameters and automated defense mechanisms.</p>
+</div>
+<!-- Global Status Card -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-md flex items-center justify-between">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined fill" data-icon="shield">shield</span>
+</div>
+<div>
+<div class="text-label-mono font-label-mono text-on-surface-variant uppercase tracking-wider mb-1">Current Budget</div>
+<div class="text-metric-lg font-metric-lg text-primary">ε = 0.85</div>
+</div>
+</div>
+<div class="px-3 py-1 bg-secondary-container text-on-secondary-container rounded-full text-label-mono font-label-mono font-bold">
+                    OPTIMAL
+                </div>
+</div>
+<!-- Automated Noise Adjustment (Toggles) -->
+<section class="flex flex-col gap-md">
+<h3 class="text-body-lg font-body-lg font-semibold text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]" data-icon="tune">tune</span>
+                    Automated Adjustments
+                </h3>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg overflow-hidden">
+<!-- Toggle Item 1 -->
+<div class="flex justify-between items-center p-md border-b border-outline-variant">
+<div class="pr-md">
+<h4 class="text-body-md font-body-md font-semibold text-on-surface">Dynamic Noise Scaling</h4>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-1">Automatically increase noise when high risk queries are detected.</p>
+</div>
+<div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in flex-shrink-0">
+<input checked="" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer z-10 transition-transform duration-200 ease-in-out transform translate-x-0 checked:translate-x-6 checked:border-primary-container" id="toggle1" name="toggle1" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-outline cursor-pointer transition-colors duration-200 ease-in-out" for="toggle1"></label>
+</div>
+</div>
+<!-- Toggle Item 2 -->
+<div class="flex justify-between items-center p-md">
+<div class="pr-md">
+<h4 class="text-body-md font-body-md font-semibold text-on-surface">Strict Outlier Clipping</h4>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-1">Enforce bounds aggressively on rare categorical values.</p>
+</div>
+<div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in flex-shrink-0">
+<input class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer z-10 transition-transform duration-200 ease-in-out transform translate-x-0" id="toggle2" name="toggle2" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-outline cursor-pointer transition-colors duration-200 ease-in-out" for="toggle2"></label>
+</div>
+</div>
+</div>
+</section>
+<!-- Alert Thresholds (Sliders) -->
+<section class="flex flex-col gap-md">
+<h3 class="text-body-lg font-body-lg font-semibold text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]" data-icon="warning">warning</span>
+                    Alert Thresholds
+                </h3>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-md flex flex-col gap-lg">
+<!-- Slider 1 -->
+<div>
+<div class="flex justify-between items-end mb-sm">
+<div>
+<h4 class="text-body-md font-body-md font-semibold text-on-surface">MIA Vulnerability</h4>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Membership Inference Attack risk</p>
+</div>
+<span class="text-label-mono font-label-mono text-primary bg-primary-fixed px-2 py-1 rounded">55%</span>
+</div>
+<input class="w-full h-1 bg-outline-variant rounded-lg appearance-none cursor-pointer" max="100" min="0" type="range" value="55"/>
+<div class="flex justify-between mt-xs text-[10px] text-on-surface-variant font-label-mono uppercase">
+<span>0%</span>
+<span>100%</span>
+</div>
+</div>
+<hr class="border-outline-variant"/>
+<!-- Slider 2 -->
+<div>
+<div class="flex justify-between items-end mb-sm">
+<div>
+<h4 class="text-body-md font-body-md font-semibold text-on-surface">Data Re-identification</h4>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Probability of record linkage</p>
+</div>
+<span class="text-label-mono font-label-mono text-primary bg-primary-fixed px-2 py-1 rounded">0.02</span>
+</div>
+<input class="w-full h-1 bg-outline-variant rounded-lg appearance-none cursor-pointer" max="100" min="0" type="range" value="20"/>
+<div class="flex justify-between mt-xs text-[10px] text-on-surface-variant font-label-mono uppercase">
+<span>0.00</span>
+<span>0.10</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Active Defense Rules (List) -->
+<section class="flex flex-col gap-md">
+<div class="flex justify-between items-center">
+<h3 class="text-body-lg font-body-lg font-semibold text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]" data-icon="policy">policy</span>
+                        Active Defense Rules
+                    </h3>
+<button class="text-primary text-body-sm font-body-sm font-semibold hover:underline">Edit</button>
+</div>
+<div class="flex flex-col gap-sm">
+<!-- Rule 1 -->
+<div class="bg-surface-container-low border border-outline-variant rounded-lg p-sm pl-md flex items-center gap-md border-l-4 border-l-secondary">
+<div class="flex-1 font-label-mono text-label-mono text-on-surface">
+<span class="text-secondary font-bold">IF</span> MIA &gt; 55% <br/>
+<span class="text-primary-container font-bold">THEN</span> Increase Noise by 0.1
+                        </div>
+<button class="p-2 text-on-surface-variant hover:text-error transition-colors">
+<span class="material-symbols-outlined" data-icon="delete">delete</span>
+</button>
+</div>
+<!-- Rule 2 -->
+<div class="bg-surface-container-low border border-outline-variant rounded-lg p-sm pl-md flex items-center gap-md border-l-4 border-l-primary">
+<div class="flex-1 font-label-mono text-label-mono text-on-surface">
+<span class="text-secondary font-bold">IF</span> Budget &lt; 0.1 <br/>
+<span class="text-primary-container font-bold">THEN</span> Halt Generation
+                        </div>
+<button class="p-2 text-on-surface-variant hover:text-error transition-colors">
+<span class="material-symbols-outlined" data-icon="delete">delete</span>
+</button>
+</div>
+<button class="w-full py-sm border border-dashed border-outline text-on-surface-variant rounded-lg flex items-center justify-center gap-2 hover:bg-surface-container transition-colors text-body-sm font-body-sm mt-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="add">add</span>
+                        Add New Rule
+                    </button>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Mobile specific navigation overlaying at bottom) -->
+<nav class="bg-surface-container-lowest border-t border-outline-variant h-[80px] w-full absolute bottom-0 flex justify-around items-center px-sm pb-2 z-20">
+<button class="flex flex-col items-center p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined mb-1" data-icon="dashboard">dashboard</span>
+<span class="text-[10px] font-label-mono">Overview</span>
+</button>
+<button class="flex flex-col items-center p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined mb-1" data-icon="analytics">analytics</span>
+<span class="text-[10px] font-label-mono">Metrics</span>
+</button>
+<!-- Active Tab: Security/Privacy -->
+<button class="flex flex-col items-center p-2 text-primary-container bg-primary-fixed rounded-xl px-4 transition-colors">
+<span class="material-symbols-outlined fill mb-1" data-icon="security">security</span>
+<span class="text-[10px] font-label-mono font-bold">Security</span>
+</button>
+<button class="flex flex-col items-center p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined mb-1" data-icon="settings">settings</span>
+<span class="text-[10px] font-label-mono">Settings</span>
+</button>
+</nav>
+</div>
+</body></html>

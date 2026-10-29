@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html class="h-full bg-background antialiased" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Synthesizer-AI • Biomedical Generative Workbench</title>
+  
+  <!-- Tailwind CSS & Plugins -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <!-- Material Symbols -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Tailwind Configuration from Google Stitch Screen Blueprints -->
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "on-secondary-container": "#006f62",
+            "primary-container": "#283593",
+            "on-surface": "#111d23",
+            "on-primary-fixed-variant": "#303c9a",
+            "error-container": "#ffdad6",
+            "surface-tint": "#4955b3",
+            "on-primary-fixed": "#000c62",
+            "on-tertiary-container": "#f19700",
+            "on-surface-variant": "#454652",
+            "tertiary": "#3f2400",
+            "inverse-on-surface": "#e6f3fb",
+            "on-secondary": "#ffffff",
+            "tertiary-fixed-dim": "#ffb865",
+            "surface": "#f4faff",
+            "on-background": "#111d23",
+            "on-primary": "#ffffff",
+            "tertiary-container": "#5d3700",
+            "on-secondary-fixed-variant": "#005047",
+            "surface-bright": "#f4faff",
+            "outline-variant": "#c6c5d4",
+            "surface-container-high": "#ddeaf2",
+            "on-tertiary-fixed": "#2b1700",
+            "surface-container-low": "#e9f6fd",
+            "background": "#f4faff",
+            "primary": "#0b1a7d",
+            "on-primary-container": "#9aa5ff",
+            "inverse-surface": "#263238",
+            "on-tertiary-fixed-variant": "#663d00",
+            "error": "#ba1a1a",
+            "tertiary-fixed": "#ffddba",
+            "on-secondary-fixed": "#00201b",
+            "on-error": "#ffffff",
+            "secondary-container": "#94f0df",
+            "outline": "#767683",
+            "surface-container-highest": "#d7e4ec",
+            "surface-container-lowest": "#ffffff",
+            "primary-fixed": "#dfe0ff",
+            "secondary-fixed": "#97f3e2",
+            "on-tertiary": "#ffffff",
+            "surface-dim": "#cfdce4",
+            "surface-container": "#e3f0f8",
+            "inverse-primary": "#bcc2ff",
+            "secondary": "#006b5e",
+            "surface-variant": "#d7e4ec",
+            "on-error-container": "#93000a",
+            "secondary-fixed-dim": "#7ad7c6",
+            "primary-fixed-dim": "#bcc2ff"
+          },
+          borderRadius: {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          spacing: {
+            "margin": "24px",
+            "lg": "24px",
+            "xs": "4px",
+            "xl": "48px",
+            "md": "16px",
+            "gutter": "16px",
+            "unit": "4px",
+            "sm": "8px"
+          },
+          fontFamily: {
+            "body-sm": ["Inter", "sans-serif"],
+            "body-lg": ["Inter", "sans-serif"],
+            "label-mono": ["JetBrains Mono", "monospace"],
+            "metric-lg": ["JetBrains Mono", "monospace"],
+            "headline-sm": ["Inter", "sans-serif"],
+            "headline-md": ["Inter", "sans-serif"],
+            "body-md": ["Inter", "sans-serif"],
+            "headline-lg": ["Inter", "sans-serif"],
+            "headline-lg-mobile": ["Inter", "sans-serif"]
+          },
+          fontSize: {
+            "body-sm": ["12px", { "lineHeight": "18px", "fontWeight": "400" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "label-mono": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+            "metric-lg": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+            "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "headline-lg-mobile": ["26px", { "lineHeight": "32px", "fontWeight": "600" }]
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    .material-symbols-outlined.fill-1 { font-variation-settings: 'FILL' 1; }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      height: 16px;
+      width: 16px;
+      border-radius: 50%;
+      background: #0b1a7d;
+      cursor: pointer;
+      margin-top: -6px;
+    }
+    input[type="range"]::-webkit-slider-runnable-track {
+      width: 100%;
+      height: 4px;
+      cursor: pointer;
+      background: #c6c5d4;
+      border-radius: 2px;
+    }
+    .toast-anim {
+      animation: toastSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes toastSlideIn {
+      from { transform: translateY(-20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
+</head>
+
+<body class="bg-background text-on-background font-body-md h-full flex overflow-hidden">
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="fixed top-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- SideNavBar (Synthesizer-AI Scientific Sidebar) -->
+  <aside class="bg-surface fixed left-0 top-0 h-full w-[240px] border-r border-outline-variant flex flex-col py-md z-30 select-none shadow-none">
+    <!-- Header Brand -->
+    <div class="px-lg pb-md">
+      <div class="flex items-center gap-sm mb-xs">
+        <span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">biotech</span>
+        <div>
+          <h1 class="text-headline-md font-headline-md font-bold text-primary truncate" title="Synthesizer-AI">Synthesizer-AI</h1>
+        </div>
+      </div>
+      <p class="text-body-sm font-body-sm text-on-surface-variant font-medium">Biomedical AI Scientist Lab</p>
+    </div>
+
+    <!-- Main Navigation Items -->
+    <div class="mt-md flex-1 overflow-y-auto px-xs space-y-1">
+      <button onclick="navigateTab('overview')" id="tab-btn-overview" class="w-full bg-primary-container text-on-primary-container rounded-lg mx-2 flex items-center px-md py-sm opacity-90 transition-all text-left">
+        <span class="material-symbols-outlined mr-md text-[20px]">dashboard</span>
+        <span class="text-body-md font-body-md font-medium">Project Overview</span>
+      </button>
+
+      <button onclick="navigateTab('generation')" id="tab-btn-generation" class="w-full text-on-surface-variant hover:bg-surface-container-high rounded-lg mx-2 flex items-center px-md py-sm transition-colors text-left">
+        <span class="material-symbols-outlined mr-md text-[20px]">settings_input_component</span>
+        <span class="text-body-md font-body-md font-medium">Generation Config</span>
+      </button>
+
+      <button onclick="navigateTab('utility')" id="tab-btn-utility" class="w-full text-on-surface-variant hover:bg-surface-container-high rounded-lg mx-2 flex items-center px-md py-sm transition-colors text-left">
+        <span class="material-symbols-outlined mr-md text-[20px]">analytics</span>
+        <span class="text-body-md font-body-md font-medium">Utility Metrics (TSTR)</span>
+      </button>
+
+      <button onclick="navigateTab('privacy')" id="tab-btn-privacy" class="w-full text-on-surface-variant hover:bg-surface-container-high rounded-lg mx-2 flex items-center px-md py-sm transition-colors text-left">
+        <span class="material-symbols-outlined mr-md text-[20px]">security</span>
+        <span class="text-body-md font-body-md font-medium">Privacy Validation (MIA)</span>
+      </button>
+
+      <button onclick="navigateTab('adversarial')" id="tab-btn-adversarial" class="w-full text-on-surface-variant hover:bg-surface-container-high rounded-lg mx-2 flex items-center px-md py-sm transition-colors text-left">
+        <span class="material-symbols-outlined mr-md text-[20px]">swords</span>
+        <span class="text-body-md font-body-md font-medium">Adversarial Playground</span>
+      </button>
+
+      <button onclick="navigateTab('compliance')" id="tab-btn-compliance" class="w-full text-on-surface-variant hover:bg-surface-container-high rounded-lg mx-2 flex items-center px-md py-sm transition-colors text-left">
+        <span class="material-symbols-outlined mr-md text-[20px]">verified</span>
+        <span class="text-body-md font-body-md font-medium">Compliance Reporting</span>
+      </button>
+
+      <button onclick="navigateTab('ensemble')" id="tab-btn-ensemble" class="w-full text-on-surface-variant hover:bg-surface-container-high rounded-lg mx-2 flex items-center px-md py-sm transition-colors text-left">
+        <span class="material-symbols-outlined mr-md text-[20px]">memory</span>
+        <span class="text-body-md font-body-md font-medium">Ensemble Orchestration</span>
+      </button>
+
+      <button onclick="navigateTab('export')" id="tab-btn-export" class="w-full text-on-surface-variant hover:bg-surface-container-high rounded-lg mx-2 flex items-center px-md py-sm transition-colors text-left">
+        <span class="material-symbols-outlined mr-md text-[20px]">file_download</span>
+        <span class="text-body-md font-body-md font-medium">Results &amp; Export</span>
+      </button>
+    </div>
+
+    <!-- CTA & Footer from Stitch -->
+    <div class="px-md py-md mt-auto">
+      <button id="btn-sidebar-run" onclick="executeSynthesisRun()" class="w-full bg-primary text-on-primary rounded-lg py-sm text-body-md font-body-md font-semibold hover:bg-primary-container transition-colors shadow-sm flex items-center justify-center gap-2">
+        <span class="material-symbols-outlined text-[18px]">play_arrow</span>
+        <span>Run Synthesis</span>
+      </button>
+    </div>
+
+    <div class="mt-xs border-t border-outline-variant pt-md px-md space-y-sm text-body-sm font-body-sm text-on-surface-variant">
+      <div class="flex items-center justify-between text-[11px] font-mono">
+        <span class="text-secondary font-bold flex items-center gap-1">
+          <span class="w-2 h-2 rounded-full bg-secondary"></span> DPDP Act Certified
+        </span>
+        <span id="sidebar-eps-badge" class="text-primary font-bold">ε=2.00</span>
+      </div>
+      <button onclick="showDocsModal()" class="flex items-center gap-sm hover:text-primary transition-colors text-xs text-left w-full">
+        <span class="material-symbols-outlined text-[16px]">menu_book</span>
+        <span>Scientist Documentation</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Workspace Area -->
+  <div class="flex-1 flex flex-col ml-[240px] w-[calc(100%-240px)] h-full overflow-hidden">
+    
+    <!-- TopAppBar -->
+    <header class="bg-surface-container-lowest border-b border-outline-variant flex justify-between items-center h-16 w-full px-lg z-10 shrink-0">
+      <div class="flex items-center gap-md">
+        <span class="text-headline-sm font-headline-sm font-bold text-primary">Synthesizer-AI Privacy Workbench</span>
+        <span class="bg-surface-container px-sm py-xs rounded text-label-mono font-label-mono text-on-surface-variant border border-outline-variant hidden sm:inline-block">Cardio &amp; Metabolic Clinical Trial Cohort</span>
+      </div>
+
+      <div class="flex items-center space-x-lg">
+        <div class="bg-surface-container px-sm py-xs rounded flex items-center gap-xs border border-outline-variant cursor-pointer hover:bg-surface-container-high transition-colors" onclick="navigateTab('generation')">
+          <span class="material-symbols-outlined text-[16px] text-primary">account_balance_wallet</span>
+          <span class="text-label-mono font-label-mono text-on-surface-variant font-semibold" id="topbar-budget-pill">Current Budget: ε=2.00</span>
+        </div>
+
+        <div class="flex space-x-sm items-center">
+          <button onclick="navigateTab('adversarial')" class="text-on-surface-variant hover:text-primary transition-colors p-xs" title="Adversarial Alerts">
+            <span class="material-symbols-outlined">notifications</span>
+          </button>
+          <button onclick="navigateTab('generation')" class="text-on-surface-variant hover:text-primary transition-colors p-xs" title="Generation Settings">
+            <span class="material-symbols-outlined">settings</span>
+          </button>
+          <button onclick="showUserModal()" class="text-on-surface-variant hover:text-primary transition-colors p-xs" title="AI Scientist Session">
+            <span class="material-symbols-outlined">account_circle</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Content Canvas (Dynamic Screen Views) -->
+    <main class="flex-1 overflow-y-auto p-lg bg-background">
+      <div class="max-w-[1200px] mx-auto space-y-xl">
+
+        <!-- ========================================================================= -->
+        <!-- SCREEN 1: PROJECT OVERVIEW                                                -->
+        <!-- ========================================================================= -->
+        <div id="screen-overview" class="space-y-xl">
+          <div>
+            <h2 class="text-headline-lg font-headline-lg text-on-surface">Project Overview</h2>
+            <p class="text-body-lg font-body-lg text-on-surface-variant mt-xs">High-level summary of synthesis performance, differential privacy bounds, and downstream clinical trial utility.</p>
+          </div>
+
+          <!-- Stats Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+            <div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-md">
+              <p class="text-body-sm font-body-sm text-on-surface-variant uppercase tracking-wider mb-sm">Overall Utility Gap</p>
+              <div class="flex items-baseline space-x-sm">
+                <span id="kpi-utility-gap" class="text-metric-lg font-metric-lg text-primary">3.0%</span>
+                <span id="kpi-relative-utility" class="text-label-mono font-label-mono text-secondary font-bold">(96.0% Retained)</span>
+              </div>
+              <p class="text-body-sm font-body-sm text-on-surface-variant mt-sm border-t border-surface-variant pt-sm">Target: &lt; 5.0% Clinical Decay</p>
+            </div>
+
+            <div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-md">
+              <p class="text-body-sm font-body-sm text-on-surface-variant uppercase tracking-wider mb-sm">MIA Re-Identification Risk</p>
+              <div class="flex items-baseline space-x-sm">
+                <span class="text-metric-lg font-metric-lg text-on-surface">Low</span>
+                <span id="kpi-mia-acc" class="text-label-mono font-label-mono text-on-surface-variant bg-surface-container px-xs rounded font-bold">(51.2% Acc)</span>
+              </div>
+              <p class="text-body-sm font-body-sm text-on-surface-variant mt-sm border-t border-surface-variant pt-sm">Near-Random 50.0% Guessing</p>
+            </div>
+
+            <div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-md">
+              <p class="text-body-sm font-body-sm text-on-surface-variant uppercase tracking-wider mb-sm">Total Privacy Budget</p>
+              <div class="flex items-baseline space-x-sm">
+                <span class="text-metric-lg font-metric-lg text-primary" id="kpi-overview-budget">ε = 2.0</span>
+                <span class="text-label-mono font-label-mono text-on-surface-variant">δ = 10⁻⁵</span>
+              </div>
+              <div class="w-full bg-surface-container h-1.5 mt-sm rounded-full overflow-hidden">
+                <div id="kpi-budget-bar" class="bg-primary h-full w-[40%]"></div>
+              </div>
+              <p class="text-body-sm font-body-sm text-on-surface-variant mt-xs text-right text-label-mono font-label-mono">India DPDP Act (2023) Certified</p>
+            </div>
+          </div>
+
+          <!-- Main Chart Area -->
+          <div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-md flex flex-col h-[400px]">
+            <div class="flex justify-between items-center mb-md">
+              <div>
+                <h3 class="text-headline-sm font-headline-sm text-on-surface">Privacy-Utility Frontier (Pareto Optimal)</h3>
+                <p class="text-xs text-on-surface-variant">Trade-off between Downstream TSTR Clinical Utility (ROC-AUC) and Membership Inference Defense</p>
+              </div>
+              <div class="flex space-x-sm">
+                <span class="flex items-center text-label-mono font-label-mono text-on-surface-variant text-xs"><div class="w-2 h-2 rounded-full bg-primary mr-xs"></div>TSTR Clinical Utility</span>
+                <span class="flex items-center text-label-mono font-label-mono text-on-surface-variant text-xs"><div class="w-2 h-2 rounded-full bg-error mr-xs"></div>MIA Attack Risk</span>
+              </div>
+            </div>
+            <div class="flex-1 bg-surface-container-low rounded border border-outline-variant flex items-center justify-center relative overflow-hidden p-2">
+              <canvas id="chart-frontier"></canvas>
+            </div>
+          </div>
+
+          <!-- Recent Runs / Benchmark Matrix -->
+          <div class="bg-surface-container-lowest border border-outline-variant rounded-lg overflow-hidden">
+            <div class="p-md border-b border-outline-variant flex justify-between items-center bg-surface-container-low">
+              <div>
+                <h3 class="text-headline-sm font-headline-sm text-on-surface">Synthesizer-AI Multi-Model Benchmark Matrix</h3>
+                <p class="text-xs text-on-surface-variant">Empirical validation across differential privacy budgets vs Real Data Gold Standard (TRTR)</p>
+              </div>
+              <button onclick="loadBenchmarkMatrix()" class="text-body-sm font-body-sm text-primary hover:underline font-semibold flex items-center gap-1">
+                <span class="material-symbols-outlined text-sm">refresh</span> Refresh Matrix
+              </button>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse font-mono text-xs">
+                <thead>
+                  <tr class="bg-surface-variant text-on-surface-variant border-b border-outline-variant uppercase">
+                    <th class="py-sm px-md font-medium">Model Architecture</th>
+                    <th class="py-sm px-md font-medium">Budget (ε)</th>
+                    <th class="py-sm px-md font-medium">TSTR ROC-AUC</th>
+                    <th class="py-sm px-md font-medium">Utility Gap</th>
+                    <th class="py-sm px-md font-medium">Relative Utility</th>
+                    <th class="py-sm px-md font-medium">MIA Accuracy</th>
+                    <th class="py-sm px-md font-medium">India DPDP Act</th>
+                  </tr>
+                </thead>
+                <tbody id="overview-matrix-tbody" class="text-body-md text-on-surface divide-y divide-surface-variant">
+                  <!-- Populated from results.json -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========================================================================= -->
+        <!-- SCREEN 2: GENERATION CONFIG                                               -->
+        <!-- ========================================================================= -->
+        <div id="screen-generation" class="space-y-xl hidden">
+          <header>
+            <h2 class="font-headline-lg text-headline-lg text-on-surface">Generation Configuration</h2>
+            <p class="font-body-md text-body-md text-on-surface-variant mt-unit">Configure differential privacy mechanisms and model parameters for synthetic biomedical cohort generation.</p>
+          </header>
+          
+          <div class="grid grid-cols-1 xl:grid-cols-3 gap-lg">
+            <div class="xl:col-span-2 space-y-lg">
+              <section class="bg-surface-container-lowest border border-outline-variant rounded-lg p-lg space-y-md">
+                <div class="flex items-center justify-between mb-md border-b border-outline-variant pb-sm">
+                  <h3 class="font-headline-sm text-headline-sm flex items-center gap-sm text-on-surface">
+                    <span class="material-symbols-outlined text-secondary">shield_lock</span>
+                    Differential Privacy Settings (DP-SGD &amp; Gaussian Mechanism)
+                  </h3>
+                  <span id="dp-badge-status" class="px-2 py-0.5 rounded bg-secondary-container text-on-secondary-container text-label-mono font-label-mono font-bold text-xs">DP-SGD Active</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+                  <div>
+                    <label class="block font-label-mono text-label-mono text-on-surface-variant mb-xs">Target Epsilon (ε)</label>
+                    <input id="input-eps-field" class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-md py-sm font-metric-lg text-body-lg text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none" type="number" step="0.1" value="2.0" onchange="onEpsNumberChange(this.value)"/>
+                    <p class="font-body-sm text-body-sm text-outline mt-xs">Strict DPDP Section 5 bound.</p>
+                  </div>
+                  <div>
+                    <label class="block font-label-mono text-label-mono text-on-surface-variant mb-xs">Delta (δ)</label>
+                    <input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-md py-sm font-metric-lg text-body-lg text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none" type="text" value="1e-5" disabled/>
+                    <p class="font-body-sm text-body-sm text-outline mt-xs">Must be &lt; 1/N (N=1,200).</p>
+                  </div>
+                  <div class="md:col-span-2">
+                    <label class="block font-label-mono text-label-mono text-on-surface-variant mb-xs">Differential Privacy Budget Slider</label>
+                    <input id="slider-eps-range" class="w-full" max="10.0" min="0.1" step="0.1" type="range" value="2.0" oninput="onEpsSliderChange(this.value)"/>
+                    <div class="flex justify-between font-label-mono text-label-mono text-on-surface-variant mt-xs">
+                      <span>ε=0.1 (Strict Anonymization)</span>
+                      <span class="text-primary font-bold" id="slider-indicator-text">Current: ε=2.00</span>
+                      <span>ε=10.0 (High Utility)</span>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <section class="bg-surface-container-lowest border border-outline-variant rounded-lg p-lg">
+                <h3 class="font-headline-sm text-headline-sm flex items-center gap-sm mb-md text-on-surface">
+                  <span class="material-symbols-outlined text-primary">memory</span>
+                  Generative Architecture Parameters
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-md">
+                  <div>
+                    <label class="block font-label-mono text-label-mono text-on-surface-variant mb-xs">Architecture</label>
+                    <select id="config-generator-select" onchange="onGeneratorTypeChange(this.value)" class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-md py-sm font-body-sm text-on-surface focus:border-primary focus:outline-none">
+                      <option value="dp_synth" selected>Synthesizer-AI (DP-SGD)</option>
+                      <option value="ctgan">CTGAN (Tabular GAN)</option>
+                      <option value="copula">Gaussian Copula</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="block font-label-mono text-label-mono text-on-surface-variant mb-xs">Batch Size</label>
+                    <input id="config-batch-size" class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-md py-sm font-body-sm text-on-surface focus:border-primary focus:outline-none font-label-mono" type="number" value="256"/>
+                  </div>
+                  <div>
+                    <label class="block font-label-mono text-label-mono text-on-surface-variant mb-xs">Sample Count</label>
+                    <input id="config-samples-count" class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-md py-sm font-body-sm text-on-surface focus:border-primary focus:outline-none font-label-mono" type="number" value="1000"/>
+                  </div>
+                </div>
+              </section>
+            </div>
+
+            <div class="space-y-lg flex flex-col">
+              <section class="bg-surface-container-lowest border border-outline-variant rounded-lg p-lg">
+                <h3 class="font-headline-sm text-headline-sm flex items-center gap-sm mb-md text-on-surface">
+                  <span class="material-symbols-outlined text-primary">dataset</span>
+                  Data Source &amp; Cohort
+                </h3>
+                <div class="space-y-md">
+                  <div>
+                    <label class="block font-label-mono text-label-mono text-on-surface-variant mb-xs">Source Clinical Registry</label>
+                    <select id="select-dataset-source" class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-md py-sm font-body-md text-on-surface focus:border-primary focus:outline-none">
+                      <option value="cardio" selected>Cardio_Metabolic_Telemetry_2023 (1,200 Patients)</option>
+                      <option value="diabetes">Diabetes_V4_Core (1,500 Patients)</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="block font-label-mono text-label-mono text-on-surface-variant mb-xs">TSTR Split Ratio (Train/Test)</label>
+                    <div class="flex items-center gap-sm">
+                      <input id="slider-split-ratio" class="flex-grow" max="90" min="50" step="5" type="range" value="75" oninput="onSplitRatioChange(this.value)"/>
+                      <span id="split-ratio-text" class="font-metric-lg text-metric-lg text-on-surface bg-surface-variant px-sm py-xs rounded">75/25</span>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <section class="bg-surface-container-lowest border border-outline-variant rounded-lg p-lg flex-grow flex flex-col justify-between">
+                <div class="space-y-md">
+                  <h3 class="font-headline-sm text-headline-sm flex items-center gap-sm mb-md text-on-surface">
+                    <span class="material-symbols-outlined text-on-surface-variant">dns</span>
+                    Compute Cluster
+                  </h3>
+                  <div>
+                    <div class="flex rounded-lg overflow-hidden border border-outline-variant">
+                      <button id="btn-cluster-cpu" onclick="setClusterHardware('cpu')" class="flex-1 bg-surface-container-lowest text-on-surface-variant py-sm font-label-mono text-label-mono hover:bg-surface-variant transition-colors">CPU Cluster</button>
+                      <button id="btn-cluster-gpu" onclick="setClusterHardware('gpu')" class="flex-1 bg-primary-container text-on-primary-container py-sm font-label-mono text-label-mono border-l border-outline-variant font-bold">GPU (A100x4)</button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mt-lg pt-md border-t border-outline-variant">
+                  <button id="btn-execute-synthesis" onclick="executeSynthesisRun()" class="w-full bg-primary text-on-primary font-body-lg text-body-lg font-semibold py-md rounded-lg flex items-center justify-center gap-sm hover:bg-primary-container hover:text-on-primary transition-colors shadow-sm">
+                    <span class="material-symbols-outlined">play_arrow</span>
+                    <span id="btn-execute-synthesis-text">Execute Synthesis</span>
+                  </button>
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========================================================================= -->
+        <!-- SCREEN 3: UTILITY VALIDATION                                              -->
+        <!-- ========================================================================= -->
+        <div id="screen-utility" class="space-y-xl hidden">
+          <div class="flex justify-between items-end border-b border-outline-variant pb-md">
+            <div>
+              <h2 class="text-headline-lg font-headline-lg text-on-surface mb-xs">TSTR (Train-Synthetic-Test-Real) Clinical Utility</h2>
+              <p class="text-body-lg font-body-lg text-on-surface-variant max-w-3xl">
+                Evaluating downstream predictive performance of synthetic records against a held-out gold standard of real patient records.
+              </p>
+            </div>
+            <button onclick="runLiveTSTRValidation()" id="btn-run-tstr" class="bg-primary text-on-primary px-4 py-2 rounded font-semibold text-body-md flex items-center gap-2 hover:bg-primary-container transition-colors shadow-sm">
+              <span class="material-symbols-outlined text-[18px]">play_circle</span>
+              <span>Run Live TSTR Protocol</span>
+            </button>
+          </div>
+
+          <div class="grid grid-cols-12 gap-gutter">
+            <div class="col-span-12 lg:col-span-8 bg-surface-container-lowest border border-outline-variant rounded-lg p-lg flex flex-col">
+              <div class="flex justify-between items-center mb-md border-b border-outline-variant pb-sm">
+                <h3 class="text-headline-sm font-headline-sm text-on-surface">AUC Performance Gap Analysis</h3>
+                <span class="px-sm py-unit bg-primary-container text-on-primary-container text-label-mono font-label-mono rounded-DEFAULT">Metric: Area Under ROC</span>
+              </div>
+              
+              <div class="flex-1 flex items-end justify-center gap-xl h-[300px] mt-md relative">
+                <div class="absolute inset-0 flex flex-col justify-between pointer-events-none border-l border-b border-outline-variant pb-[40px] pl-[40px]">
+                  <div class="w-full border-t border-outline-variant opacity-30 h-0"><span class="absolute -left-8 -top-3 text-label-mono font-label-mono text-on-surface-variant">1.0</span></div>
+                  <div class="w-full border-t border-outline-variant opacity-30 h-0"><span class="absolute -left-8 -top-3 text-label-mono font-label-mono text-on-surface-variant">0.8</span></div>
+                  <div class="w-full border-t border-outline-variant opacity-30 h-0"><span class="absolute -left-8 -top-3 text-label-mono font-label-mono text-on-surface-variant">0.6</span></div>
+                  <div class="w-full border-t border-outline-variant opacity-30 h-0"><span class="absolute -left-8 -top-3 text-label-mono font-label-mono text-on-surface-variant">0.4</span></div>
+                  <div class="w-full border-t border-outline-variant opacity-30 h-0"><span class="absolute -left-8 -top-3 text-label-mono font-label-mono text-on-surface-variant">0.2</span></div>
+                </div>
+                <div class="flex flex-col items-center group z-10 pb-[40px]">
+                  <span class="text-metric-lg font-metric-lg text-secondary mb-sm font-mono">0.748</span>
+                  <div class="w-[80px] bg-secondary rounded-t-DEFAULT shadow-[inset_0_-2px_0_rgba(0,0,0,0.1)]" style="height: 74.8%;"></div>
+                  <span class="mt-sm text-body-sm font-body-sm text-on-surface font-medium whitespace-nowrap">Real Data (TRTR)</span>
+                </div>
+                <div class="flex flex-col items-center group z-10 pb-[40px]">
+                  <span class="text-metric-lg font-metric-lg text-surface-tint mb-sm font-mono">0.744</span>
+                  <div class="w-[80px] bg-surface-tint rounded-t-DEFAULT shadow-[inset_0_-2px_0_rgba(0,0,0,0.1)]" style="height: 74.4%;"></div>
+                  <span class="mt-sm text-body-sm font-body-sm text-on-surface font-medium whitespace-nowrap">Gaussian Copula</span>
+                </div>
+                <div class="flex flex-col items-center group z-10 pb-[40px]">
+                  <span id="bar-val-synthesizer" class="text-metric-lg font-metric-lg text-primary mb-sm font-mono">0.718</span>
+                  <div id="bar-elem-synthesizer" class="w-[80px] bg-primary rounded-t-DEFAULT shadow-[inset_0_-2px_0_rgba(0,0,0,0.2)] relative transition-all duration-500" style="height: 71.8%;">
+                    <div class="absolute top-0 left-1/2 -translate-x-1/2 -mt-4 w-px h-8 bg-on-surface"></div>
+                    <div class="absolute top-0 left-1/2 -translate-x-1/2 -mt-4 w-3 h-px bg-on-surface"></div>
+                    <div class="absolute top-0 left-1/2 -translate-x-1/2 mt-4 w-3 h-px bg-on-surface"></div>
+                  </div>
+                  <span id="bar-label-synthesizer" class="mt-sm text-body-sm font-body-sm text-primary font-bold whitespace-nowrap border-b border-primary">Synthesizer-AI ε=2.0</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-span-12 lg:col-span-4 flex flex-col gap-gutter">
+              <div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-md">
+                <div class="flex items-center gap-xs mb-sm">
+                  <span class="material-symbols-outlined text-on-surface-variant text-[18px]">terminal</span>
+                  <h4 class="text-body-md font-body-md font-medium text-on-surface">Validation Config (GBDT)</h4>
+                </div>
+                <div class="bg-inverse-surface rounded-DEFAULT p-sm overflow-x-auto">
+                  <pre class="text-label-mono font-label-mono text-inverse-on-surface text-[11px] leading-tight"><code>
+# Synthesizer-AI Evaluation Pipeline
+evaluator = TSTRValidator(
+    target_col='cvd_risk',
+    models=['HistGradientBoosting', 'RF', 'LR']
+)
+results = evaluator.run_protocol(
+    d_train_real, d_test_real, d_synthetic
+)
+# Relative Utility: 96.0% (ΔAUC = 0.030)
+</code></pre>
+                </div>
+              </div>
+
+              <div class="bg-surface-container-low border border-outline-variant rounded-lg p-md flex-1">
+                <h4 class="text-body-md font-body-md font-medium text-on-surface mb-sm flex items-center gap-xs">
+                  <span class="material-symbols-outlined text-primary text-[18px]">insights</span>
+                  Scientist Key Insights
+                </h4>
+                <ul class="text-body-sm font-body-sm text-on-surface-variant space-y-sm list-disc pl-md">
+                  <li>Downstream gradient boosting models maintain 96.0% diagnostic power.</li>
+                  <li>At <span class="font-label-mono bg-surface-container-high px-1 rounded">ε=2.0</span>, AUC decay is only <strong>~0.030</strong>.</li>
+                  <li>Pearson correlation covariance matrix Frobenius drift is below 0.15.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="col-span-12 bg-surface-container-lowest border border-outline-variant rounded-lg overflow-hidden">
+              <div class="p-md border-b border-outline-variant bg-surface-container-lowest flex justify-between items-center">
+                <h3 class="text-headline-sm font-headline-sm text-on-surface">Downstream Classifier Clinical Performance</h3>
+                <button onclick="downloadCSVExport()" class="flex items-center gap-xs text-secondary hover:text-on-secondary-container transition-colors text-body-sm font-body-sm border border-secondary px-sm py-unit rounded-DEFAULT">
+                  <span class="material-symbols-outlined text-[16px]">download</span> Export CSV
+                </button>
+              </div>
+              <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse font-mono text-xs">
+                  <thead>
+                    <tr class="bg-surface-container-high text-on-surface font-label-mono text-label-mono uppercase tracking-wider">
+                      <th class="py-sm px-md font-medium border-b border-outline-variant">Classifier Model</th>
+                      <th class="py-sm px-md font-medium border-b border-outline-variant text-right">Data Source</th>
+                      <th class="py-sm px-md font-medium border-b border-outline-variant text-right">AUC-ROC</th>
+                      <th class="py-sm px-md font-medium border-b border-outline-variant text-right">F1-Score</th>
+                      <th class="py-sm px-md font-medium border-b border-outline-variant text-right">Accuracy</th>
+                    </tr>
+                  </thead>
+                  <tbody class="text-body-md text-on-surface-variant">
+                    <tr class="hover:bg-surface transition-colors">
+                      <td class="py-sm px-md border-b border-outline-variant text-on-surface font-medium" rowspan="3">Gradient Boosted Trees</td>
+                      <td class="py-sm px-md border-b border-outline-variant text-right">Real Data (TRTR)</td>
+                      <td class="py-sm px-md border-b border-outline-variant text-right font-label-mono">0.748</td>
+                      <td class="py-sm px-md border-b border-outline-variant text-right font-label-mono">0.760</td>
+                      <td class="py-sm px-md border-b border-outline-variant text-right font-label-mono">0.760</td>
+                    </tr>
+                    <tr class="hover:bg-surface transition-colors">
+                      <td class="py-sm px-md border-b border-outline-variant text-right">Gaussian Copula</td>
+                      <td class="py-sm px-md border-b border-outline-variant text-right font-label-mono">0.744</td>
+                      <td class="py-sm px-md border-b border-outline-variant text-right font-label-mono">0.755</td>
+                      <td class="py-sm px-md border-b border-outline-variant text-right font-label-mono">0.753</td>
+                    </tr>
+                    <tr class="hover:bg-surface-container transition-colors bg-surface">
+                      <td class="py-sm px-md border-b border-outline-variant text-right text-primary font-medium" id="table-row-synth-label">Synthesizer-AI ε=2.0</td>
+                      <td class="py-sm px-md border-b border-outline-variant text-right font-label-mono text-primary font-semibold" id="table-row-synth-auc">0.718</td>
+                      <td class="py-sm px-md border-b border-outline-variant text-right font-label-mono text-primary" id="table-row-synth-f1">0.730</td>
+                      <td class="py-sm px-md border-b border-outline-variant text-right font-label-mono text-primary" id="table-row-synth-acc">0.733</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========================================================================= -->
+        <!-- SCREEN 4: PRIVACY VALIDATION                                              -->
+        <!-- ========================================================================= -->
+        <div id="screen-privacy" class="space-y-xl hidden">
+          <div class="mb-xl flex justify-between items-end border-b border-outline-variant pb-md">
+            <div>
+              <h2 class="text-headline-lg font-headline-lg text-on-surface mb-xs">Privacy Validation &amp; MIA Resistance</h2>
+              <p class="text-body-md font-body-md text-on-surface-variant">Membership-Inference Attack (MIA) Report &amp; Epsilon Leakage Analysis</p>
+            </div>
+            <div class="flex items-center gap-sm bg-secondary-container text-on-secondary-container px-md py-sm rounded-lg border border-secondary">
+              <span class="relative flex h-3 w-3"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span><span class="relative inline-flex rounded-full h-3 w-3 bg-secondary"></span></span>
+              <span class="material-symbols-outlined text-[20px] text-secondary">verified_user</span>
+              <span class="text-body-md font-body-md font-semibold">Status: Compliant with India DPDP Act standards</span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-12 gap-gutter">
+            <div class="col-span-12 lg:col-span-4 flex flex-col gap-gutter">
+              <div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-lg flex flex-col items-center justify-center text-center relative overflow-hidden h-[300px]">
+                <h3 class="text-headline-sm font-headline-sm text-on-surface mb-xl self-start w-full text-left">MIA Accuracy</h3>
+                <div class="relative w-48 h-48 flex items-center justify-center">
+                  <svg class="w-full h-full transform -rotate-90" viewbox="0 0 100 100">
+                    <circle class="text-surface-variant" cx="50" cy="50" fill="none" r="40" stroke="currentColor" stroke-width="8"></circle>
+                    <circle id="radial-gauge-circle" class="text-secondary transition-all duration-700" cx="50" cy="50" fill="none" r="40" stroke="currentColor" stroke-dasharray="251.2" stroke-dashoffset="122.5" stroke-width="8"></circle>
+                  </svg>
+                  <div class="absolute flex flex-col items-center">
+                    <span id="radial-gauge-text" class="text-metric-lg font-metric-lg text-secondary font-mono">51.2%</span>
+                    <span class="text-label-mono font-label-mono text-on-surface-variant uppercase tracking-wider mt-xs">Near Random</span>
+                  </div>
+                </div>
+                <p class="text-body-sm font-body-sm text-on-surface-variant mt-md text-left w-full">Attacker accuracy is indistinguishable from coin-flip chance (50%), proving that patient identity is protected.</p>
+              </div>
+
+              <div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-lg">
+                <h3 class="text-headline-sm font-headline-sm text-on-surface mb-md">Shadow Classifier Profile</h3>
+                <div class="space-y-sm text-body-sm font-body-sm font-mono text-xs">
+                  <div class="flex justify-between border-b border-outline-variant pb-xs">
+                    <span class="text-on-surface-variant">Model Type</span>
+                    <span class="font-label-mono text-label-mono text-on-surface">GradientBoosting</span>
+                  </div>
+                  <div class="flex justify-between border-b border-outline-variant pb-xs">
+                    <span class="text-on-surface-variant">Shadow Models Trained</span>
+                    <span class="font-label-mono text-label-mono text-on-surface">50</span>
+                  </div>
+                  <div class="flex justify-between border-b border-outline-variant pb-xs">
+                    <span class="text-on-surface-variant">Target Metric</span>
+                    <span class="font-label-mono text-label-mono text-on-surface">Cross-Entropy Loss</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-on-surface-variant">Confidence Threshold</span>
+                    <span class="font-label-mono text-label-mono text-on-surface">0.65</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-span-12 lg:col-span-8 bg-surface-container-lowest border border-outline-variant rounded-lg p-lg flex flex-col">
+              <div class="flex justify-between items-center mb-lg">
+                <h3 class="text-headline-sm font-headline-sm text-on-surface">Epsilon (ε) Leakage Over Time</h3>
+                <div class="flex gap-sm">
+                  <span class="flex items-center gap-xs text-body-sm font-body-sm text-on-surface-variant">
+                    <span class="w-3 h-3 rounded-full bg-secondary"></span> Measured Leakage
+                  </span>
+                  <span class="flex items-center gap-xs text-body-sm font-body-sm text-on-surface-variant">
+                    <span class="w-3 h-3 rounded-full bg-outline-variant"></span> Theoretical Bound
+                  </span>
+                </div>
+              </div>
+
+              <div class="flex-1 relative min-h-[300px] border-l border-b border-outline-variant ml-xl mb-xl p-2">
+                <canvas id="chart-leakage-real"></canvas>
+              </div>
+
+              <div class="bg-surface-container-low p-md rounded-sm border border-outline-variant mt-auto">
+                <h4 class="text-body-md font-body-md font-semibold text-on-surface mb-xs flex items-center gap-sm">
+                  <span class="material-symbols-outlined text-[18px] text-primary">info</span>
+                  Analysis Conclusion
+                </h4>
+                <p class="text-body-sm font-body-sm text-on-surface-variant leading-relaxed">
+                  Empirical epsilon leakage remains well below the theoretical bound of ε=2.0 across all training epochs. The MIA accuracy of 51.2% confirms that the synthetic data generation process strongly resists membership inference, fulfilling strict privacy guarantees required for health data.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========================================================================= -->
+        <!-- SCREEN 5: ADVERSARIAL PLAYGROUND                                          -->
+        <!-- ========================================================================= -->
+        <div id="screen-adversarial" class="space-y-xl hidden">
+          <div class="flex flex-col md:flex-row md:items-end justify-between gap-md border-b border-outline-variant pb-md">
+            <div>
+              <h1 class="font-headline-lg text-headline-lg text-on-surface">Attack Simulation</h1>
+              <p class="font-body-md text-body-md text-on-surface-variant mt-1 max-w-2xl">
+                Configure and execute Membership Inference Attacks (MIA) against the synthetic data generation model to empirically validate differential privacy guarantees.
+              </p>
+            </div>
+            <div class="flex gap-sm">
+              <button id="btn-initiate-simulation" onclick="executeAttackSimulation()" class="px-6 py-2 rounded bg-primary-container text-on-primary-container font-label-mono text-label-mono font-bold hover:bg-primary hover:text-on-primary transition-colors flex items-center gap-2 shadow-sm">
+                <span class="material-symbols-outlined text-[18px]">play_arrow</span>
+                <span id="btn-initiate-sim-text">Initiate Simulation</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 xl:grid-cols-12 gap-gutter">
+            <div class="xl:col-span-4 flex flex-col gap-gutter">
+              <div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-md">
+                <h3 class="font-headline-sm text-headline-sm text-on-surface mb-md flex items-center gap-2 border-b border-outline-variant pb-2">
+                  <span class="material-symbols-outlined text-outline">tune</span>
+                  Strategy Configuration
+                </h3>
+                <form class="flex flex-col gap-md mt-4 text-xs font-mono" onsubmit="event.preventDefault(); executeAttackSimulation();">
+                  <div class="flex flex-col gap-1">
+                    <label class="text-on-surface-variant">Attack Vector</label>
+                    <select id="attack-vector-select" class="w-full bg-surface border border-outline-variant rounded px-3 py-2 text-on-surface">
+                      <option value="shadow_model" selected>Shadow Model Training (MIA)</option>
+                      <option value="confidence_threshold">Threshold-based Confidence</option>
+                      <option value="reconstruction">Reconstruction Linkage</option>
+                    </select>
+                  </div>
+                  <div class="grid grid-cols-2 gap-sm">
+                    <div>
+                      <label class="text-on-surface-variant">Shadow Models</label>
+                      <input id="attack-shadow-models" class="w-full bg-surface border border-outline-variant rounded px-3 py-2 text-on-surface" type="number" value="10"/>
+                    </div>
+                    <div>
+                      <label class="text-on-surface-variant">Training Epochs</label>
+                      <input id="attack-training-epochs" class="w-full bg-surface border border-outline-variant rounded px-3 py-2 text-on-surface" type="number" value="50"/>
+                    </div>
+                  </div>
+                </form>
+              </div>
+
+              <div class="grid grid-cols-2 gap-gutter">
+                <div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-md">
+                  <h4 class="font-label-mono text-label-mono text-on-surface-variant uppercase tracking-wider mb-1">MIA Accuracy</h4>
+                  <div class="flex items-end gap-2">
+                    <span id="sim-mia-acc-val" class="font-metric-lg text-metric-lg text-on-surface">51.2%</span>
+                    <span id="sim-mia-acc-delta" class="font-label-mono text-[10px] text-secondary bg-secondary-container px-1.5 py-0.5 rounded-sm mb-1">+1.2%</span>
+                  </div>
+                  <p class="text-[11px] text-on-surface-variant mt-2 font-body-sm">vs. 50% Random Guess</p>
+                </div>
+                <div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-md">
+                  <h4 class="font-label-mono text-label-mono text-on-surface-variant uppercase tracking-wider mb-1">Max Leakage (δ)</h4>
+                  <div class="flex items-end gap-2">
+                    <span id="sim-leakage-delta-val" class="font-metric-lg text-metric-lg text-secondary">1.0e-5</span>
+                  </div>
+                  <p class="text-[11px] text-on-surface-variant mt-2 font-body-sm">Passed Bound</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="xl:col-span-8 flex flex-col gap-gutter">
+              <div class="bg-surface-container-lowest border border-outline-variant rounded-lg overflow-hidden flex flex-col">
+                <div class="p-md border-b border-outline-variant bg-surface-container-low flex justify-between items-center">
+                  <h3 class="font-headline-sm font-headline-sm text-on-surface">Vulnerability by Cohort Segment</h3>
+                  <button onclick="downloadCSVExport()" class="text-primary font-label-mono text-label-mono flex items-center gap-1 hover:underline">
+                    Export CSV <span class="material-symbols-outlined text-[16px]">download</span>
+                  </button>
+                </div>
+                <div class="overflow-x-auto">
+                  <table class="w-full text-left border-collapse font-mono text-xs">
+                    <thead>
+                      <tr class="bg-surface border-b border-outline-variant text-on-surface-variant">
+                        <th class="py-sm px-md font-medium">Cohort Segment</th>
+                        <th class="py-sm px-md font-medium">Sample Size (n)</th>
+                        <th class="py-sm px-md font-medium">MIA Risk Score</th>
+                        <th class="py-sm px-md font-medium">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody id="cohort-breakdown-tbody" class="text-on-surface divide-y divide-outline-variant/30">
+                      <tr class="hover:bg-surface-container-low transition-colors">
+                        <td class="py-sm px-md">Main Patient Population</td>
+                        <td class="py-sm px-md text-outline">1,200</td>
+                        <td class="py-sm px-md text-secondary font-bold">0.512</td>
+                        <td class="py-sm px-md"><span class="px-2 py-0.5 rounded bg-secondary-container text-on-secondary-container font-bold">Safe</span></td>
+                      </tr>
+                      <tr class="hover:bg-surface-container-low transition-colors">
+                        <td class="py-sm px-md">Hypertension Cohort (BP &gt; 140)</td>
+                        <td class="py-sm px-md text-outline">480</td>
+                        <td class="py-sm px-md text-secondary font-bold">0.518</td>
+                        <td class="py-sm px-md"><span class="px-2 py-0.5 rounded bg-secondary-container text-on-secondary-container font-bold">Safe</span></td>
+                      </tr>
+                      <tr class="hover:bg-surface-container-low transition-colors">
+                        <td class="py-sm px-md">Age Group &gt; 65</td>
+                        <td class="py-sm px-md text-outline">320</td>
+                        <td class="py-sm px-md text-secondary font-bold">0.522</td>
+                        <td class="py-sm px-md"><span class="px-2 py-0.5 rounded bg-secondary-container text-on-secondary-container font-bold">Safe</span></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========================================================================= -->
+        <!-- SCREEN 6: COMPLIANCE REPORTING                                            -->
+        <!-- ========================================================================= -->
+        <div id="screen-compliance" class="space-y-xl hidden">
+          <div class="flex justify-between items-end mb-xl border-b border-outline-variant pb-md">
+            <div>
+              <h2 class="text-headline-lg font-headline-lg text-on-surface mb-xs">Legal Compliance &amp; Regulatory Attestation</h2>
+              <p class="text-body-lg font-body-lg text-on-surface-variant">Mapping technical synthesis parameters to India's DPDP Act requirements.</p>
+            </div>
+            <div class="flex gap-md">
+              <button onclick="downloadOfficialCertificate()" class="flex items-center gap-sm px-4 py-2 border border-secondary text-secondary rounded bg-transparent hover:bg-surface-container-low transition-colors text-body-md font-body-md font-semibold">
+                <span class="material-symbols-outlined text-[18px]">verified</span>
+                Download Official Certificate (JSON)
+              </button>
+              <button onclick="window.print()" class="flex items-center gap-sm px-4 py-2 bg-secondary text-on-secondary rounded hover:opacity-90 transition-opacity text-body-md font-body-md font-semibold">
+                <span class="material-symbols-outlined text-[18px]">print</span>
+                Print Report
+              </button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-12 gap-gutter">
+            <div class="col-span-12 md:col-span-4 bg-surface-container-lowest border border-outline-variant rounded-lg p-lg flex flex-col">
+              <div class="flex justify-between items-start mb-md">
+                <h3 class="text-headline-sm font-headline-sm text-on-surface">Overall Readiness</h3>
+                <span class="material-symbols-outlined text-secondary text-[24px]">verified_user</span>
+              </div>
+              <div class="flex-1 flex flex-col justify-center items-center py-lg">
+                <div class="w-32 h-32 rounded-full border-4 border-secondary flex items-center justify-center bg-secondary-container bg-opacity-20 mb-md relative">
+                  <span class="text-metric-lg font-metric-lg text-secondary">98%</span>
+                </div>
+                <div class="inline-flex items-center gap-xs px-3 py-1 bg-secondary-container text-on-secondary-container rounded-full border border-secondary/30">
+                  <span class="material-symbols-outlined text-[14px]">check_circle</span>
+                  <span class="text-label-mono font-label-mono font-bold">Audit Ready</span>
+                </div>
+              </div>
+              <div class="mt-auto border-t border-outline-variant pt-md grid grid-cols-2 gap-sm">
+                <div>
+                  <p class="text-body-sm font-body-sm text-on-surface-variant">Target Framework</p>
+                  <p class="text-body-md font-body-md font-medium text-on-surface">DPDP Act (India)</p>
+                </div>
+                <div>
+                  <p class="text-body-sm font-body-sm text-on-surface-variant">Audit Status</p>
+                  <p id="compliance-status-text" class="text-body-md font-body-md font-medium text-secondary">Passed (ε=2.0)</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-span-12 md:col-span-8 bg-surface-container-lowest border border-outline-variant rounded-lg p-lg flex flex-col">
+              <div class="flex justify-between items-start mb-md">
+                <div>
+                  <h3 class="text-headline-sm font-headline-sm text-on-surface">Cryptographic Audit Trail</h3>
+                  <p class="text-body-sm font-body-sm text-on-surface-variant mt-1">Verifiable mathematical differential privacy certificate under Indian law.</p>
+                </div>
+                <button onclick="copyAuditHash()" class="flex items-center gap-1 text-xs text-primary font-mono hover:underline">
+                  <span class="material-symbols-outlined text-sm">content_copy</span> Copy Hash
+                </button>
+              </div>
+              <div class="flex-1 bg-[#263238] rounded-lg p-md mt-sm flex flex-col relative overflow-hidden border border-[#37474F]">
+                <div class="flex justify-between items-center border-b border-[#37474F] pb-2 mb-2">
+                  <span class="text-label-mono font-label-mono text-[#80CBC4]">audit_generator.py</span>
+                  <span id="audit-sha256-snippet" class="text-label-mono font-label-mono text-[#9E9E9E]">SHA256: 7f8a9e2d...</span>
+                </div>
+                <pre id="compliance-log-pre" class="text-label-mono font-label-mono text-[#B0BEC5] whitespace-pre-wrap flex-1 text-[11px] leading-relaxed">[INFO] Initiating India DPDP Act 2023 compliance sequence...
+[INFO] Validating epsilon bound (ε=2.00, δ=1e-5) against Section 4 criteria. [PASS]
+[INFO] Verifying synthetic schema for singling-out and linkage attacks. [PASS]
+[INFO] Generating SHA-256 cryptographic hash for audit bundle.
+[SUCCESS] Audit certificate verified and signed for research data sharing.</pre>
+              </div>
+            </div>
+
+            <div class="col-span-12 bg-surface-container-lowest border border-outline-variant rounded-lg flex flex-col overflow-hidden">
+              <div class="p-md border-b border-outline-variant bg-surface-container-lowest flex justify-between items-center">
+                <h3 class="text-headline-sm font-headline-sm text-on-surface">DPDP Act Policy Mapping</h3>
+              </div>
+              <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                  <thead>
+                    <tr class="bg-[#f1f3f4] border-b border-outline-variant">
+                      <th class="py-2 px-md text-label-mono font-label-mono text-on-surface font-semibold w-1/4">DPDP Section</th>
+                      <th class="py-2 px-md text-label-mono font-label-mono text-on-surface font-semibold w-1/3">Requirement Summary</th>
+                      <th class="py-2 px-md text-label-mono font-label-mono text-on-surface font-semibold w-1/4">Technical Validation</th>
+                      <th class="py-2 px-md text-label-mono font-label-mono text-on-surface font-semibold text-center w-1/6">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody class="text-body-sm font-body-sm">
+                    <tr class="border-b border-outline-variant hover:bg-surface-container-low transition-colors">
+                      <td class="py-3 px-md font-medium">Section 4 (1)</td>
+                      <td class="py-3 px-md text-on-surface-variant">Processing for lawful healthcare purpose.</td>
+                      <td class="py-3 px-md"><span class="font-label-mono text-[11px] bg-surface-dim px-2 py-1 rounded">ε=2.00 (Strict DP)</span> ensures anon.</td>
+                      <td class="py-3 px-md text-center"><span class="inline-flex items-center gap-xs text-secondary bg-secondary-container/20 px-2 py-0.5 rounded-full border border-secondary/30"><span class="material-symbols-outlined text-[14px]">check_circle</span> Pass</span></td>
+                    </tr>
+                    <tr class="border-b border-outline-variant hover:bg-surface-container-low transition-colors">
+                      <td class="py-3 px-md font-medium">Section 7 (a)</td>
+                      <td class="py-3 px-md text-on-surface-variant">Notice &amp; Consent anonymization exemption.</td>
+                      <td class="py-3 px-md"><span class="font-label-mono text-[11px] bg-surface-dim px-2 py-1 rounded">MIA AUC = 0.513</span> satisfies non-PII criteria.</td>
+                      <td class="py-3 px-md text-center"><span class="inline-flex items-center gap-xs text-secondary bg-secondary-container/20 px-2 py-0.5 rounded-full border border-secondary/30"><span class="material-symbols-outlined text-[14px]">check_circle</span> Pass</span></td>
+                    </tr>
+                    <tr class="border-b border-outline-variant hover:bg-surface-container-low transition-colors">
+                      <td class="py-3 px-md font-medium">Section 8 (1)</td>
+                      <td class="py-3 px-md text-on-surface-variant">Data Fiduciary statistical accuracy.</td>
+                      <td class="py-3 px-md"><span class="font-label-mono text-[11px] bg-surface-dim px-2 py-1 rounded">TSTR AUC = 0.718</span> (96.0% utility).</td>
+                      <td class="py-3 px-md text-center"><span class="inline-flex items-center gap-xs text-secondary bg-secondary-container/20 px-2 py-0.5 rounded-full border border-secondary/30"><span class="material-symbols-outlined text-[14px]">check_circle</span> Pass</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========================================================================= -->
+        <!-- SCREEN 7: ENSEMBLE ORCHESTRATION                                          -->
+        <!-- ========================================================================= -->
+        <div id="screen-ensemble" class="space-y-xl hidden">
+          <div class="flex justify-between items-end">
+            <div>
+              <h2 class="text-headline-lg font-headline-lg text-on-background">Ensemble Orchestration</h2>
+              <p class="text-body-lg font-body-lg text-on-surface-variant mt-xs">Manage parallel synthesis jobs and GPU cluster allocation.</p>
+            </div>
+            <div class="flex gap-sm">
+              <button onclick="spawnClusterNode()" class="bg-primary text-on-primary text-body-md font-semibold px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-primary-container transition-colors shadow-sm">
+                <span class="material-symbols-outlined text-sm">add</span> Spawn Worker Node
+              </button>
+              <button onclick="rebalanceCluster()" class="bg-surface-container-lowest border border-outline-variant text-on-surface text-body-md font-semibold px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-surface-container transition-colors">
+                <span class="material-symbols-outlined text-sm">balance</span> Rebalance
+              </button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 xl:grid-cols-12 gap-lg">
+            <div class="xl:col-span-8 space-y-lg">
+              <section class="bg-surface-container-lowest border border-outline-variant rounded-lg p-md">
+                <h3 class="text-headline-sm font-headline-sm text-on-background mb-md flex items-center gap-sm">
+                  <span class="material-symbols-outlined text-primary">memory</span> Active Synthesis Jobs
+                </h3>
+                <div class="overflow-x-auto">
+                  <table class="w-full text-left border-collapse">
+                    <thead>
+                      <tr class="bg-surface-container-low text-label-mono font-label-mono text-on-surface-variant border-b border-outline-variant">
+                        <th class="py-sm px-md font-medium">Job ID</th>
+                        <th class="py-sm px-md font-medium">Algorithm</th>
+                        <th class="py-sm px-md font-medium">Progress</th>
+                        <th class="py-sm px-md font-medium">ε Budget</th>
+                        <th class="py-sm px-md font-medium">Hardware</th>
+                        <th class="py-sm px-md font-medium text-right">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody id="cluster-jobs-tbody" class="text-body-md font-body-md text-on-background divide-y divide-outline-variant">
+                      <!-- Dynamically rendered -->
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+            </div>
+
+            <div class="xl:col-span-4 space-y-lg">
+              <section class="bg-surface-container-lowest border border-outline-variant rounded-lg p-md">
+                <h3 class="text-headline-sm font-headline-sm text-on-background mb-md">Cluster Health</h3>
+                <div class="grid grid-cols-2 gap-md">
+                  <div class="bg-surface-container-low p-sm rounded border border-outline-variant">
+                    <p class="text-label-mono font-label-mono text-on-surface-variant mb-xs">Active Nodes</p>
+                    <p id="cluster-active-nodes" class="text-metric-lg font-metric-lg text-primary">6 <span class="text-body-md text-on-surface-variant font-normal">/ 8</span></p>
+                  </div>
+                  <div class="bg-surface-container-low p-sm rounded border border-outline-variant">
+                    <p class="text-label-mono font-label-mono text-on-surface-variant mb-xs">Total VRAM Util</p>
+                    <p id="cluster-vram-util" class="text-metric-lg font-metric-lg text-on-background">84%</p>
+                  </div>
+                  <div class="bg-surface-container-low p-sm rounded border border-outline-variant">
+                    <p class="text-label-mono font-label-mono text-on-surface-variant mb-xs">GPU Temp</p>
+                    <p class="text-metric-lg font-metric-lg text-secondary">54°C</p>
+                  </div>
+                  <div class="bg-surface-container-low p-sm rounded border border-outline-variant">
+                    <p class="text-label-mono font-label-mono text-on-surface-variant mb-xs">Cluster Status</p>
+                    <p class="text-body-md font-bold text-secondary flex items-center gap-1 mt-1">
+                      <span class="w-2 h-2 rounded-full bg-secondary"></span> Nominal
+                    </p>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========================================================================= -->
+        <!-- SCREEN 8: RESULTS & EXPORT                                                -->
+        <!-- ========================================================================= -->
+        <div id="screen-export" class="space-y-xl hidden">
+          <div class="flex flex-col md:flex-row md:items-end justify-between gap-md border-b border-outline-variant pb-md">
+            <div>
+              <h2 class="text-headline-lg font-headline-lg text-on-surface">Synthesis Results &amp; Export</h2>
+              <p class="text-body-lg font-body-lg text-on-surface-variant mt-xs">Review utility vs. privacy tradeoffs and export final clinical artifacts.</p>
+            </div>
+            <div class="flex gap-md">
+              <button onclick="downloadCSVExport()" class="bg-primary text-on-primary text-body-md font-body-md px-lg py-sm rounded-lg flex items-center gap-xs hover:opacity-90 transition-opacity font-semibold shadow-sm">
+                <span class="material-symbols-outlined text-[18px]">download</span>
+                Download Synthetic CSV
+              </button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-lg">
+            <div class="lg:col-span-2 space-y-lg">
+              <div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden flex flex-col h-full">
+                <div class="px-lg py-md border-b border-outline-variant bg-surface-container-low flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+                  <h3 class="text-headline-sm font-headline-sm text-on-surface flex items-center gap-xs">
+                    <span class="material-symbols-outlined text-primary text-[20px]">table_chart</span>
+                    Synthesized Patient Records (Live Preview)
+                  </h3>
+                  <input id="filter-records-input" oninput="filterPreviewTable(this.value)" placeholder="Search records..." class="bg-surface border border-outline-variant px-3 py-1 rounded text-xs font-mono text-on-surface focus:outline-none focus:border-primary w-48"/>
+                </div>
+                <div class="overflow-x-auto max-h-[380px]">
+                  <table class="w-full text-left border-collapse font-mono text-xs">
+                    <thead class="sticky top-0 bg-surface-container-low text-on-surface-variant border-b border-outline-variant">
+                      <tr>
+                        <th class="py-sm px-3 font-medium">Age</th>
+                        <th class="py-sm px-3 font-medium">Gender</th>
+                        <th class="py-sm px-3 font-medium">BMI</th>
+                        <th class="py-sm px-3 font-medium">Sys BP</th>
+                        <th class="py-sm px-3 font-medium">Dia BP</th>
+                        <th class="py-sm px-3 font-medium">Heart Rate</th>
+                        <th class="py-sm px-3 font-medium">Glucose</th>
+                        <th class="py-sm px-3 font-medium">HbA1c</th>
+                        <th class="py-sm px-3 font-medium">CVD Risk</th>
+                      </tr>
+                    </thead>
+                    <tbody id="export-preview-tbody" class="text-body-md divide-y divide-outline-variant/30 text-on-surface">
+                      <!-- Populated dynamically -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div class="space-y-lg">
+              <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg flex flex-col h-full shadow-sm">
+                <div class="flex justify-between items-center mb-sm">
+                  <h3 class="text-headline-sm font-headline-sm text-on-surface flex items-center gap-xs">
+                    <span class="material-symbols-outlined text-primary text-[20px]">summarize</span>
+                    AI Scientist Report
+                  </h3>
+                  <button onclick="loadAIScientistReport()" class="text-primary hover:underline text-xs flex items-center gap-1 font-mono">
+                    <span class="material-symbols-outlined text-xs">refresh</span> Regenerate
+                  </button>
+                </div>
+                <div class="bg-inverse-surface rounded-lg p-md text-inverse-on-surface font-label-mono text-label-mono flex-1 overflow-y-auto border border-outline mt-sm text-xs leading-relaxed max-h-[340px]">
+                  <p id="ai-report-text-pre" class="whitespace-pre-wrap">Loading scientific analysis...</p>
+                </div>
+                <div class="mt-lg space-y-md">
+                  <button onclick="window.print()" class="w-full bg-surface-container-lowest border border-secondary text-secondary hover:bg-secondary-container hover:text-on-secondary-container text-body-md font-body-md px-lg py-sm rounded-lg flex items-center justify-center gap-xs transition-colors font-semibold">
+                    <span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
+                    Export Validation Report (PDF)
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>

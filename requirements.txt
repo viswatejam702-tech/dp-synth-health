@@ -1,0 +1,22 @@
+# ==============================================================================
+# Synthesizer-AI: Pinned & Audited Production Dependencies
+# ==============================================================================
+
+# Core Web & API Engine
+fastapi>=0.110.0,<0.120.0
+uvicorn>=0.30.0,<0.35.0
+pydantic>=2.7.0,<3.0.0
+starlette>=0.37.0,<0.45.0
+python-multipart>=0.0.9
+
+# Scientific & ML Foundations
+numpy>=1.26.0,<3.0.0
+pandas>=2.1.0,<3.0.0
+scikit-learn>=1.4.0,<2.0.0
+scipy>=1.11.0,<2.0.0
+
+# Environment & Configuration
+python-dotenv>=1.0.0
+
+# Optional Generative AI Provider SDKs
+openai>=1.30.0

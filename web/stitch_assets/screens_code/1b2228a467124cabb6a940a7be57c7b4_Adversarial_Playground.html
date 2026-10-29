@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DP Health Engine - Adversarial Playground</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "error": "#ba1a1a",
+                      "tertiary-fixed": "#ffddba",
+                      "inverse-on-surface": "#e6f3fb",
+                      "on-primary": "#ffffff",
+                      "on-tertiary-fixed-variant": "#663d00",
+                      "surface-container-highest": "#d7e4ec",
+                      "primary": "#0b1a7d",
+                      "on-surface": "#111d23",
+                      "background": "#f4faff",
+                      "on-secondary-fixed": "#00201b",
+                      "on-primary-container": "#9aa5ff",
+                      "on-tertiary": "#ffffff",
+                      "primary-fixed-dim": "#bcc2ff",
+                      "outline-variant": "#c6c5d4",
+                      "surface-container": "#e3f0f8",
+                      "tertiary-fixed-dim": "#ffb865",
+                      "on-primary-fixed": "#000c62",
+                      "on-tertiary-fixed": "#2b1700",
+                      "tertiary-container": "#5d3700",
+                      "primary-container": "#283593",
+                      "on-tertiary-container": "#f19700",
+                      "secondary-container": "#94f0df",
+                      "on-surface-variant": "#454652",
+                      "secondary": "#006b5e",
+                      "surface": "#f4faff",
+                      "on-secondary-container": "#006f62",
+                      "on-error": "#ffffff",
+                      "on-primary-fixed-variant": "#303c9a",
+                      "error-container": "#ffdad6",
+                      "surface-dim": "#cfdce4",
+                      "secondary-fixed": "#97f3e2",
+                      "inverse-surface": "#263238",
+                      "on-secondary": "#ffffff",
+                      "primary-fixed": "#dfe0ff",
+                      "tertiary": "#3f2400",
+                      "surface-tint": "#4955b3",
+                      "surface-container-lowest": "#ffffff",
+                      "outline": "#767683",
+                      "on-secondary-fixed-variant": "#005047",
+                      "surface-bright": "#f4faff",
+                      "secondary-fixed-dim": "#7ad7c6",
+                      "surface-variant": "#d7e4ec",
+                      "on-background": "#111d23",
+                      "inverse-primary": "#bcc2ff",
+                      "surface-container-low": "#e9f6fd",
+                      "on-error-container": "#93000a",
+                      "surface-container-high": "#ddeaf2"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "margin": "24px",
+                      "xl": "48px",
+                      "lg": "24px",
+                      "xs": "4px",
+                      "sm": "8px",
+                      "unit": "4px",
+                      "gutter": "16px",
+                      "md": "16px"
+              },
+              "fontFamily": {
+                      "metric-lg": [
+                              "JetBrains Mono"
+                      ],
+                      "label-mono": [
+                              "JetBrains Mono"
+                      ],
+                      "headline-md": [
+                              "Inter"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "body-sm": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "headline-lg": [
+                              "Inter"
+                      ],
+                      "headline-lg-mobile": [
+                              "Inter"
+                      ],
+                      "headline-sm": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "metric-lg": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-mono": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "18px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "26px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-sm": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md h-full flex overflow-hidden selection:bg-primary-container selection:text-on-primary-container">
+<!-- SideNavBar -->
+<aside class="bg-surface border-r border-outline-variant w-[240px] h-full flex-shrink-0 flex flex-col py-lg px-md gap-lg hidden md:flex z-20 shadow-sm relative">
+<div class="flex flex-col gap-sm px-sm">
+<h1 class="font-headline-md text-headline-md font-bold text-primary tracking-tight">Synthetix AI</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Differential Privacy Lab</p>
+</div>
+<nav class="flex-1 flex flex-col gap-sm overflow-y-auto mt-md">
+<!-- Tabs -->
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-variant transition-colors duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">dashboard</span>
+<span class="font-label-mono text-label-mono font-medium">Project Overview</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-variant transition-colors duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">settings_input_component</span>
+<span class="font-label-mono text-label-mono font-medium">Generation Config</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-variant transition-colors duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">analytics</span>
+<span class="font-label-mono text-label-mono font-medium">Utility Metrics</span>
+</a>
+<!-- Active Tab for Adversarial Playground / Privacy Validation -->
+<a class="flex items-center gap-md px-md py-sm bg-primary-container text-on-primary-container rounded-lg font-bold scale-[0.99] transition-transform" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+<span class="font-label-mono text-label-mono">Privacy Validation</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-variant transition-colors duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">ios_share</span>
+<span class="font-label-mono text-label-mono font-medium">Results &amp; Export</span>
+</a>
+</nav>
+<div class="mt-auto border-t border-outline-variant pt-lg flex flex-col gap-sm">
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-variant transition-colors duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">menu_book</span>
+<span class="font-label-mono text-label-mono font-medium">Documentation</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-variant transition-colors duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">shield</span>
+<span class="font-label-mono text-label-mono font-medium">Security Settings</span>
+</a>
+<!-- User Avatar Placeholder -->
+<div class="mt-md px-sm flex items-center gap-md py-sm bg-surface-container rounded-lg cursor-pointer hover:bg-surface-variant transition-colors">
+<img class="w-8 h-8 rounded-full object-cover border border-outline-variant" data-alt="A small, professional circular avatar portrait of a research scientist wearing glasses, set against a neutral gray background. Soft studio lighting. Academic and trustworthy mood." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlYkwhFkxhOQnR-Gcbu1mykeJupgG55r9kTZA6w4wDSxpCEhshVD_f6xwL5JjHrnPaC5v_e4H8lysTcvmycX_ZcEs0E5bM2RWteUBmiaokj_0bNLJ3lJoN_T8nH_MdsYz3l-wJv0tosuLBFm3WS43gbGo7_uF7rCoyGDDnU0e84PaursPM3iwGoFOCtR4GtT9XkKGSpsvFSukO_3M9UmL-wL5iWZWfdbTbmoV2S3-KzAbm3_SH574"/>
+<div class="flex-1 min-w-0">
+<p class="font-label-mono text-label-mono text-on-surface truncate">Dr. J. Doe</p>
+<p class="text-[10px] text-on-surface-variant truncate">Lead Researcher</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col h-full overflow-hidden bg-background">
+<!-- TopAppBar -->
+<header class="bg-surface-container-lowest h-16 border-b border-outline-variant flex justify-between items-center w-full px-lg max-w-full flex-shrink-0 z-10">
+<div class="flex items-center gap-md">
+<!-- Mobile Menu Toggle -->
+<button class="md:hidden text-on-surface hover:text-primary transition-colors p-sm rounded-lg hover:bg-surface-variant">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h2 class="font-headline-sm text-headline-sm font-semibold text-on-surface">DP Health Engine</h2>
+<span class="hidden md:inline-flex items-center px-2 py-1 rounded-sm bg-surface-container-high text-on-surface-variant font-label-mono text-label-mono ml-sm border border-outline-variant">
+                    Adversarial Playground
+                </span>
+</div>
+<div class="flex items-center gap-lg">
+<!-- Search -->
+<div class="hidden lg:flex items-center bg-surface-container rounded-full px-4 py-1.5 border border-transparent focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-all w-64">
+<span class="material-symbols-outlined text-outline text-[18px] mr-2">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-sm text-on-surface w-full p-0 placeholder:text-outline placeholder:font-body-sm h-6" placeholder="Search experiments..." type="text"/>
+</div>
+<div class="flex items-center gap-sm border-r border-outline-variant pr-md mr-md">
+<button class="text-on-surface-variant hover:text-primary transition-colors p-sm rounded-full hover:bg-surface-variant hover:opacity-80">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors p-sm rounded-full hover:bg-surface-variant hover:opacity-80">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+</div>
+<!-- Primary Action/Metric -->
+<div class="flex flex-col items-end">
+<span class="font-label-mono text-[10px] text-on-surface-variant uppercase tracking-wider">Privacy Budget</span>
+<span class="font-metric-lg text-metric-lg text-primary font-bold">ε=0.5</span>
+</div>
+</div>
+</header>
+<!-- Workbench Canvas -->
+<div class="flex-1 overflow-y-auto p-lg lg:p-margin">
+<div class="max-w-[1600px] mx-auto flex flex-col gap-xl">
+<!-- Page Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-md">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Attack Simulation</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1 max-w-2xl">
+                            Configure and execute Membership Inference Attacks (MIA) against the synthetic data generation model to empiricaly validate differential privacy guarantees.
+                        </p>
+</div>
+<div class="flex gap-sm">
+<button class="px-4 py-2 rounded border border-secondary text-secondary font-label-mono text-label-mono hover:bg-surface-container-high transition-colors">
+                            Load Preset
+                        </button>
+<button class="px-6 py-2 rounded bg-primary-container text-on-primary-container font-label-mono text-label-mono font-bold hover:bg-primary hover:text-on-primary transition-colors flex items-center gap-2 shadow-sm">
+<span class="material-symbols-outlined text-[18px]">play_arrow</span>
+                            Initiate Simulation
+                        </button>
+</div>
+</div>
+<!-- Main Grid Layout -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-gutter">
+<!-- Left Column: Configuration -->
+<div class="xl:col-span-4 flex flex-col gap-gutter">
+<!-- Attack Configuration Card -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-md">
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-md flex items-center gap-2 border-b border-outline-variant pb-2">
+<span class="material-symbols-outlined text-outline">tune</span>
+                                Strategy Configuration
+                            </h3>
+<form class="flex flex-col gap-md mt-4">
+<!-- Attack Type Select -->
+<div class="flex flex-col gap-1">
+<label class="font-label-mono text-label-mono text-on-surface-variant">Attack Vector</label>
+<div class="relative">
+<select class="w-full bg-surface border border-outline-variant rounded px-3 py-2 text-body-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary appearance-none cursor-pointer">
+<option value="shadow">Shadow Model Training (MIA)</option>
+<option value="threshold">Threshold-based Confidence (MIA)</option>
+<option value="gan">GAN-based Data Leakage</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-outline pointer-events-none">expand_more</span>
+</div>
+</div>
+<!-- Parameters Grid -->
+<div class="grid grid-cols-2 gap-sm">
+<div class="flex flex-col gap-1">
+<label class="font-label-mono text-label-mono text-on-surface-variant">Shadow Models</label>
+<input class="w-full bg-surface border border-outline-variant rounded px-3 py-2 text-body-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary font-metric-lg text-[14px]" type="number" value="10"/>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-mono text-label-mono text-on-surface-variant">Training Epochs</label>
+<input class="w-full bg-surface border border-outline-variant rounded px-3 py-2 text-body-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary font-metric-lg text-[14px]" type="number" value="50"/>
+</div>
+</div>
+<!-- Target Cohort -->
+<div class="flex flex-col gap-1 mt-2">
+<label class="font-label-mono text-label-mono text-on-surface-variant">Target Patient Cohort</label>
+<div class="flex flex-wrap gap-2 mt-1">
+<label class="inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="px-3 py-1 rounded-full border border-outline-variant text-label-mono font-label-mono text-on-surface-variant peer-checked:bg-secondary-container peer-checked:text-on-secondary-container peer-checked:border-secondary-container transition-colors">
+                                                All Patients
+                                            </div>
+</label>
+<label class="inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox"/>
+<div class="px-3 py-1 rounded-full border border-outline-variant text-label-mono font-label-mono text-on-surface-variant peer-checked:bg-secondary-container peer-checked:text-on-secondary-container peer-checked:border-secondary-container transition-colors">
+                                                Rare Disease (ICD-10)
+                                            </div>
+</label>
+<label class="inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox"/>
+<div class="px-3 py-1 rounded-full border border-outline-variant text-label-mono font-label-mono text-on-surface-variant peer-checked:bg-secondary-container peer-checked:text-on-secondary-container peer-checked:border-secondary-container transition-colors">
+                                                Age &gt; 80
+                                            </div>
+</label>
+</div>
+</div>
+<!-- Advanced Editor Toggle -->
+<div class="mt-4 pt-4 border-t border-outline-variant">
+<button class="flex items-center justify-between w-full text-left font-label-mono text-label-mono text-primary hover:text-primary-fixed-variant transition-colors group" type="button">
+<span>Show Advanced Script Editor</span>
+<span class="material-symbols-outlined text-[16px] group-hover:translate-y-px transition-transform">keyboard_arrow_down</span>
+</button>
+</div>
+</form>
+</div>
+<!-- Global Summary Metrics -->
+<div class="grid grid-cols-2 gap-gutter">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-md">
+<h4 class="font-label-mono text-label-mono text-on-surface-variant uppercase tracking-wider mb-1">MIA Accuracy</h4>
+<div class="flex items-end gap-2">
+<span class="font-metric-lg text-metric-lg text-on-surface">51.2%</span>
+<span class="font-label-mono text-[10px] text-secondary bg-secondary-container px-1.5 py-0.5 rounded-sm mb-1">+1.2% Baseline</span>
+</div>
+<p class="text-[11px] text-on-surface-variant mt-2 font-body-sm">vs. 50% Random Guess</p>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-md">
+<h4 class="font-label-mono text-label-mono text-on-surface-variant uppercase tracking-wider mb-1">Max Leakage (δ)</h4>
+<div class="flex items-end gap-2">
+<span class="font-metric-lg text-metric-lg text-error">1.4e-5</span>
+<span class="material-symbols-outlined text-[16px] text-error mb-1">warning</span>
+</div>
+<p class="text-[11px] text-on-surface-variant mt-2 font-body-sm">Target: &lt; 1.0e-5</p>
+</div>
+</div>
+</div>
+<!-- Right Column: Visualization & Results -->
+<div class="xl:col-span-8 flex flex-col gap-gutter">
+<!-- Live Visualization -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-md h-[400px] flex flex-col relative overflow-hidden">
+<div class="flex justify-between items-center mb-md z-10 relative">
+<h3 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">monitoring</span>
+                                    Live Attack Visualization
+                                </h3>
+<div class="flex gap-2">
+<span class="px-2 py-1 bg-surface-container rounded text-[11px] font-label-mono text-on-surface-variant border border-outline-variant">ROC Curve</span>
+<span class="px-2 py-1 bg-surface rounded text-[11px] font-label-mono text-outline border border-transparent cursor-pointer hover:bg-surface-variant transition-colors">Precision-Recall</span>
+</div>
+</div>
+<!-- Chart Area (Placeholder for actual Canvas/SVG) -->
+<div class="flex-1 w-full relative bg-[#FAFBFC] border border-outline-variant border-dashed rounded flex items-center justify-center">
+<!-- Faux Academic Chart Elements -->
+<div class="absolute inset-0 p-8 flex flex-col justify-between">
+<!-- Grid lines -->
+<div class="w-full h-[1px] bg-outline-variant/30"></div>
+<div class="w-full h-[1px] bg-outline-variant/30"></div>
+<div class="w-full h-[1px] bg-outline-variant/30"></div>
+<div class="w-full h-[1px] bg-outline-variant/30"></div>
+</div>
+<div class="absolute inset-0 p-8 flex justify-between">
+<!-- Grid lines vertical -->
+<div class="w-[1px] h-full bg-outline-variant/30"></div>
+<div class="w-[1px] h-full bg-outline-variant/30"></div>
+<div class="w-[1px] h-full bg-outline-variant/30"></div>
+<div class="w-[1px] h-full bg-outline-variant/30"></div>
+</div>
+<!-- Baseline Diagonal -->
+<div class="absolute inset-8 border-l border-b border-on-surface">
+<svg class="absolute inset-0 overflow-visible" height="100%" preserveaspectratio="none" width="100%">
+<!-- Random Guess Baseline -->
+<line stroke="#767683" stroke-dasharray="4 4" stroke-width="1.5" x1="0" x2="100%" y1="100%" y2="0"></line>
+<!-- Attack ROC Curve -->
+<path class="opacity-80" d="M0,100% C20%,80% 40%,60% 100%,0" fill="none" stroke="#283593" stroke-width="2"></path>
+<!-- Confidence Interval Area -->
+<path class="opacity-10" d="M0,100% C20%,85% 40%,65% 100%,5 L100%,0 L40%,55% L20%,75% Z" fill="#283593"></path>
+</svg>
+</div>
+<!-- Axis Labels -->
+<span class="absolute bottom-2 left-1/2 -translate-x-1/2 font-label-mono text-[10px] text-on-surface-variant">False Positive Rate (FPR)</span>
+<span class="absolute left-[-30px] top-1/2 -translate-y-1/2 -rotate-90 font-label-mono text-[10px] text-on-surface-variant whitespace-nowrap">True Positive Rate (TPR)</span>
+<!-- Legend -->
+<div class="absolute top-4 right-4 bg-surface/90 border border-outline-variant p-2 rounded backdrop-blur-sm flex flex-col gap-1">
+<div class="flex items-center gap-2">
+<div class="w-3 h-0.5 bg-primary"></div>
+<span class="font-label-mono text-[10px] text-on-surface">Target Model ROC (AUC: 0.52)</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-0 border-t border-dashed border-outline"></div>
+<span class="font-label-mono text-[10px] text-on-surface-variant">Baseline (AUC: 0.50)</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Results Table -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg overflow-hidden flex flex-col">
+<div class="p-md border-b border-outline-variant bg-surface-container-low flex justify-between items-center">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Vulnerability by Cohort</h3>
+<button class="text-primary font-label-mono text-label-mono flex items-center gap-1 hover:underline">
+                                    Export CSV <span class="material-symbols-outlined text-[16px]">download</span>
+</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface border-b border-outline-variant">
+<th class="py-sm px-md font-label-mono text-label-mono text-on-surface-variant font-medium">Cohort Segment</th>
+<th class="py-sm px-md font-label-mono text-label-mono text-on-surface-variant font-medium">Sample Size (n)</th>
+<th class="py-sm px-md font-label-mono text-label-mono text-on-surface-variant font-medium">Risk Score</th>
+<th class="py-sm px-md font-label-mono text-label-mono text-on-surface-variant font-medium">Confidence (p)</th>
+<th class="py-sm px-md font-label-mono text-label-mono text-on-surface-variant font-medium">Status</th>
+</tr>
+</thead>
+<tbody class="font-body-sm text-on-surface">
+<tr class="border-b border-outline-variant hover:bg-surface-container-lowest transition-colors">
+<td class="py-sm px-md font-metric-lg text-[13px]">Main Population</td>
+<td class="py-sm px-md font-metric-lg text-[13px] text-outline">10,000</td>
+<td class="py-sm px-md font-metric-lg text-[13px]">0.512</td>
+<td class="py-sm px-md font-metric-lg text-[13px] text-outline">0.45</td>
+<td class="py-sm px-md">
+<span class="inline-flex items-center px-2 py-0.5 rounded-sm bg-secondary-container text-on-secondary-container font-label-mono text-[10px]">Safe</span>
+</td>
+</tr>
+<tr class="border-b border-outline-variant hover:bg-surface-container-lowest transition-colors bg-error-container/20">
+<td class="py-sm px-md font-metric-lg text-[13px]">Rare Disease (ICD-10: E70-E90)</td>
+<td class="py-sm px-md font-metric-lg text-[13px] text-outline">152</td>
+<td class="py-sm px-md font-metric-lg text-[13px] text-error font-semibold">0.685</td>
+<td class="py-sm px-md font-metric-lg text-[13px] text-error">0.02*</td>
+<td class="py-sm px-md">
+<span class="inline-flex items-center px-2 py-0.5 rounded-sm bg-error-container text-on-error-container font-label-mono text-[10px] border border-error/20">High Risk</span>
+</td>
+</tr>
+<tr class="border-b border-outline-variant hover:bg-surface-container-lowest transition-colors">
+<td class="py-sm px-md font-metric-lg text-[13px]">Age Group &gt; 80</td>
+<td class="py-sm px-md font-metric-lg text-[13px] text-outline">845</td>
+<td class="py-sm px-md font-metric-lg text-[13px]">0.530</td>
+<td class="py-sm px-md font-metric-lg text-[13px] text-outline">0.12</td>
+<td class="py-sm px-md">
+<span class="inline-flex items-center px-2 py-0.5 rounded-sm bg-tertiary-container text-on-tertiary-container font-label-mono text-[10px]">Review</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

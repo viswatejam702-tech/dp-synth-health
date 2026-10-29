@@ -1,0 +1,355 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>DP-Synth Health - Privacy Validation</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=JetBrains+Mono:wght@500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary-container": "#006f62",
+                      "primary-container": "#283593",
+                      "on-surface": "#111d23",
+                      "on-primary-fixed-variant": "#303c9a",
+                      "error-container": "#ffdad6",
+                      "surface-tint": "#4955b3",
+                      "on-primary-fixed": "#000c62",
+                      "on-tertiary-container": "#f19700",
+                      "on-surface-variant": "#454652",
+                      "tertiary": "#3f2400",
+                      "inverse-on-surface": "#e6f3fb",
+                      "on-secondary": "#ffffff",
+                      "tertiary-fixed-dim": "#ffb865",
+                      "surface": "#f4faff",
+                      "on-background": "#111d23",
+                      "on-primary": "#ffffff",
+                      "tertiary-container": "#5d3700",
+                      "on-secondary-fixed-variant": "#005047",
+                      "surface-bright": "#f4faff",
+                      "outline-variant": "#c6c5d4",
+                      "surface-container-high": "#ddeaf2",
+                      "on-tertiary-fixed": "#2b1700",
+                      "surface-container-low": "#e9f6fd",
+                      "background": "#f4faff",
+                      "primary": "#0b1a7d",
+                      "on-primary-container": "#9aa5ff",
+                      "inverse-surface": "#263238",
+                      "on-tertiary-fixed-variant": "#663d00",
+                      "error": "#ba1a1a",
+                      "tertiary-fixed": "#ffddba",
+                      "on-secondary-fixed": "#00201b",
+                      "on-error": "#ffffff",
+                      "secondary-container": "#94f0df",
+                      "outline": "#767683",
+                      "surface-container-highest": "#d7e4ec",
+                      "surface-container-lowest": "#ffffff",
+                      "primary-fixed": "#dfe0ff",
+                      "secondary-fixed": "#97f3e2",
+                      "on-tertiary": "#ffffff",
+                      "surface-dim": "#cfdce4",
+                      "surface-container": "#e3f0f8",
+                      "inverse-primary": "#bcc2ff",
+                      "secondary": "#006b5e",
+                      "surface-variant": "#d7e4ec",
+                      "on-error-container": "#93000a",
+                      "secondary-fixed-dim": "#7ad7c6",
+                      "primary-fixed-dim": "#bcc2ff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "margin": "24px",
+                      "lg": "24px",
+                      "xs": "4px",
+                      "xl": "48px",
+                      "md": "16px",
+                      "gutter": "16px",
+                      "unit": "4px",
+                      "sm": "8px"
+              },
+              "fontFamily": {
+                      "body-sm": [
+                              "Inter"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "label-mono": [
+                              "JetBrains Mono"
+                      ],
+                      "metric-lg": [
+                              "JetBrains Mono"
+                      ],
+                      "headline-sm": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "headline-lg": [
+                              "Inter"
+                      ],
+                      "headline-lg-mobile": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "body-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "18px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-lg": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-mono": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "metric-lg": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-sm": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "26px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined[data-weight="fill"] {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-lg min-h-screen flex antialiased">
+<aside class="fixed left-0 top-0 h-full w-[240px] bg-surface border-r border-outline-variant flex flex-col py-md z-20">
+<div class="px-margin mb-xl">
+<div class="flex items-center gap-md mb-xs">
+<img alt="Research Lab Logo" class="w-8 h-8 object-contain rounded-sm" data-alt="A highly minimal, high-tech research lab logo icon representing data privacy and synthesis, rendered in deep indigo and bright white. Professional corporate aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuABB_eRNBukz6NOf-DQu4sfI663Vcr2gMKD0dKHR_M5pAunpqzgqAVx3OIxLGrFo4zpfA51alRSEUG_YjtrTmvCeze8h-dbH9Fy4X4KKZabS5b1AzW2nuyg4M52ttmzl53dTPgND70ch9wVfJeS6_o0AKdML__RKljFaXJ036n4NROwfi6S_M2VV0XSdT9xOGOxk0ZqV9Y8E1vv7_kF_Hy9DOVcdveaETK5RiwxQ2_ZRzqG801WW0k">
+<h1 class="text-headline-md font-headline-md text-primary font-semibold truncate">DP-Synth Health</h1>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant">V3.4 Privacy Core</p>
+</div>
+<nav class="flex-1 flex flex-col gap-sm">
+<a class="text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150 rounded-lg mx-2 px-md py-sm flex items-center gap-md text-body-md font-body-md" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="dashboard">dashboard</span>
+                Project Overview
+            </a>
+<a class="text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150 rounded-lg mx-2 px-md py-sm flex items-center gap-md text-body-md font-body-md" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="settings_input_component">settings_input_component</span>
+                Generation Config
+            </a>
+<a class="text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150 rounded-lg mx-2 px-md py-sm flex items-center gap-md text-body-md font-body-md" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="analytics">analytics</span>
+                Utility Metrics
+            </a>
+<a class="bg-primary-container text-on-primary-container opacity-80 transition-opacity rounded-lg mx-2 px-md py-sm flex items-center gap-md text-body-md font-body-md" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="security" data-weight="fill">security</span>
+                Privacy Validation
+            </a>
+<a class="text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150 rounded-lg mx-2 px-md py-sm flex items-center gap-md text-body-md font-body-md" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="file_download">file_download</span>
+                Results &amp; Export
+            </a>
+</nav>
+<div class="px-margin mt-auto mb-lg">
+<button class="w-full bg-primary text-on-primary text-body-md font-body-md font-semibold py-sm px-md rounded-DEFAULT hover:opacity-90 transition-opacity flex items-center justify-center gap-sm">
+<span class="material-symbols-outlined text-[18px]">play_arrow</span>
+                Run Synthesis
+            </button>
+</div>
+<div class="px-margin flex flex-col gap-sm border-t border-outline-variant pt-lg">
+<a class="text-on-surface-variant hover:text-on-surface transition-colors flex items-center gap-sm text-body-sm font-body-sm" href="#">
+<span class="material-symbols-outlined text-[16px]" data-icon="help">help</span>
+                Documentation
+            </a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors flex items-center gap-sm text-body-sm font-body-sm" href="#">
+<span class="material-symbols-outlined text-[16px]" data-icon="contact_support">contact_support</span>
+                Support
+            </a>
+</div>
+</aside>
+<main class="flex-1 ml-[240px] flex flex-col min-h-screen">
+<header class="bg-surface-container-lowest flex justify-between items-center h-16 w-full px-lg border-b border-outline-variant z-10 sticky top-0">
+<div class="flex items-center gap-lg">
+<h2 class="text-headline-sm font-headline-sm font-bold text-primary">Privacy Workbench</h2>
+<div class="text-label-mono font-label-mono text-on-surface-variant flex items-center gap-sm bg-surface-container-low px-sm py-xs rounded-sm border border-outline-variant">
+<span class="material-symbols-outlined text-[16px]">account_balance_wallet</span>
+                    Current Budget: ε=0.85
+                </div>
+</div>
+<div class="flex items-center gap-md">
+<button aria-label="Notifications" class="text-on-surface-variant hover:text-primary transition-colors hover:scale-99">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button aria-label="Settings" class="text-on-surface-variant hover:text-primary transition-colors hover:scale-99">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<button aria-label="Profile" class="text-on-surface-variant hover:text-primary transition-colors hover:scale-99">
+<img alt="Researcher Profile" class="w-8 h-8 rounded-full border border-outline-variant" data-alt="A professional headshot of a data scientist or researcher, clean well-lit studio background, minimalist professional attire, small circular avatar size." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFVqFtjv1V2F-dJ4ugcu2grRE8Q3Fba_aBnh1WTwtqoxpXCNWa1LORI22y3zjn7A_hEzx64Go_6freuLPxfb9rqL3LRK36SPM62GOVV-tjlh7DnkCrsiKWCVlXXmD6zWYpG-eBQQB-7SR2k9EdzB-9B_rUEPN1yRX6qX8mXrjimCLJAa9J5IZCji-ADyJFklnLsrjhlwo9DUQZVuD3Z_zTYz5zAtew79C7eZaxljuIAkqGMVfFuvs">
+</button>
+</div>
+</header>
+<div class="p-margin flex-1 flex flex-col max-w-[1440px] mx-auto w-full">
+<div class="mb-xl flex justify-between items-end border-b border-outline-variant pb-md">
+<div>
+<h2 class="text-headline-lg font-headline-lg text-on-surface mb-xs">Privacy Validation</h2>
+<p class="text-body-md font-body-md text-on-surface-variant">Membership-Inference Attack (MIA) Report &amp; Epsilon Leakage Analysis</p>
+</div>
+<div class="flex items-center gap-sm bg-secondary-container text-on-secondary-container px-md py-sm rounded-lg border border-secondary"><span class="relative flex h-3 w-3"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span><span class="relative inline-flex rounded-full h-3 w-3 bg-secondary"></span></span>
+<span class="material-symbols-outlined text-[20px] text-secondary">verified_user</span>
+<span class="text-body-md font-body-md font-semibold">Status: Compliant with India DPDP Act standards</span>
+</div>
+</div>
+<div class="grid grid-cols-12 gap-gutter flex-1">
+<div class="col-span-12 lg:col-span-4 flex flex-col gap-gutter">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-lg flex flex-col items-center justify-center text-center relative overflow-hidden h-[300px]">
+<h3 class="text-headline-sm font-headline-sm text-on-surface mb-xl self-start w-full text-left">MIA Accuracy</h3>
+<div class="relative w-48 h-48 flex items-center justify-center">
+<svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+<circle class="text-surface-variant" cx="50" cy="50" fill="none" r="40" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-secondary" cx="50" cy="50" fill="none" r="40" stroke="currentColor" stroke-dasharray="251.2" stroke-dashoffset="121.07" stroke-width="8"></circle>
+</svg>
+<div class="absolute flex flex-col items-center">
+<span class="text-metric-lg font-metric-lg text-secondary">51.8%</span>
+<span class="text-label-mono font-label-mono text-on-surface-variant uppercase tracking-wider mt-xs">Near Random</span>
+</div>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-md text-left w-full">Indicates the attacker's ability to guess if a record was in the training set is barely better than a coin flip (50%).</p>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-lg">
+<h3 class="text-headline-sm font-headline-sm text-on-surface mb-md">Shadow Classifier Profile</h3>
+<div class="space-y-sm text-body-sm font-body-sm">
+<div class="flex justify-between border-b border-outline-variant pb-xs hover:bg-surface-container-high transition-colors px-xs -mx-xs rounded-sm cursor-default">
+<span class="text-on-surface-variant">Model Type</span>
+<span class="font-label-mono text-label-mono text-on-surface">GradientBoosting</span>
+</div>
+<div class="flex justify-between border-b border-outline-variant pb-xs hover:bg-surface-container-high transition-colors px-xs -mx-xs rounded-sm cursor-default">
+<span class="text-on-surface-variant">Shadow Models Trained</span>
+<span class="font-label-mono text-label-mono text-on-surface">50</span>
+</div>
+<div class="flex justify-between border-b border-outline-variant pb-xs hover:bg-surface-container-high transition-colors px-xs -mx-xs rounded-sm cursor-default">
+<span class="text-on-surface-variant">Target Metric</span>
+<span class="font-label-mono text-label-mono text-on-surface">Cross-Entropy Loss</span>
+</div>
+<div class="flex justify-between hover:bg-surface-container-high transition-colors px-xs -mx-xs rounded-sm cursor-default">
+<span class="text-on-surface-variant">Confidence Threshold</span>
+<span class="font-label-mono text-label-mono text-on-surface">0.65</span>
+</div>
+</div>
+</div>
+</div>
+<div class="col-span-12 lg:col-span-8 bg-surface-container-lowest border border-outline-variant rounded-lg p-lg flex flex-col">
+<div class="flex justify-between items-center mb-lg">
+<h3 class="text-headline-sm font-headline-sm text-on-surface">Epsilon (ε) Leakage Over Time</h3>
+<div class="flex gap-sm">
+<span class="flex items-center gap-xs text-body-sm font-body-sm text-on-surface-variant">
+<span class="w-3 h-3 rounded-full bg-secondary"></span> Measured Leakage
+                            </span>
+<span class="flex items-center gap-xs text-body-sm font-body-sm text-on-surface-variant">
+<span class="w-3 h-3 rounded-full bg-outline-variant"></span> Theoretical Bound
+                            </span>
+</div>
+</div>
+<div class="flex-1 relative min-h-[300px] border-l border-b border-outline-variant ml-xl mb-xl">
+<div class="absolute left-0 bottom-0 w-full h-full">
+<svg class="w-full h-full" preserveAspectRatio="none" viewBox="0 0 100 100">
+<path class="text-secondary" d="M0,80 Q20,75 40,60 T80,40 T100,35" fill="none" stroke="currentColor" stroke-width="1.5"></path>
+<path class="text-outline-variant" d="M0,20 L100,20" fill="none" stroke="currentColor" stroke-dasharray="4" stroke-width="1"></path>
+</svg>
+</div>
+<div class="absolute -left-lg top-0 h-full flex flex-col justify-between text-label-mono font-label-mono text-on-surface-variant pb-sm">
+<span class="">1.0</span>
+<span class="">0.8</span>
+<span class="">0.5</span>
+<span class="">0.2</span>
+<span class="">0.0</span>
+</div>
+<div class="absolute -bottom-lg left-0 w-full flex justify-between text-label-mono font-label-mono text-on-surface-variant pl-sm">
+<span class="">Epoch 0</span>
+<span class="">Epoch 25</span>
+<span class="">Epoch 50</span>
+<span class="">Epoch 75</span>
+<span class="">Epoch 100</span>
+</div>
+<div class="absolute inset-0 flex justify-between items-end px-sm group"><div class="relative h-full w-px hover:bg-primary/20 cursor-crosshair flex items-center justify-center"><div class="absolute bottom-[20%] hidden group-hover:block bg-inverse-surface text-inverse-on-surface text-label-mono p-xs rounded shadow-lg z-20 whitespace-nowrap">ε=0.15</div></div><div class="relative h-full w-px hover:bg-primary/20 cursor-crosshair flex items-center justify-center"><div class="absolute bottom-[35%] hidden group-hover:block bg-inverse-surface text-inverse-on-surface text-label-mono p-xs rounded shadow-lg z-20 whitespace-nowrap">ε=0.28</div></div><div class="relative h-full w-px hover:bg-primary/20 cursor-crosshair flex items-center justify-center"><div class="absolute bottom-[50%] hidden group-hover:block bg-inverse-surface text-inverse-on-surface text-label-mono p-xs rounded shadow-lg z-20 whitespace-nowrap">ε=0.42</div></div><div class="relative h-full w-px hover:bg-primary/20 cursor-crosshair flex items-center justify-center"><div class="absolute bottom-[60%] hidden group-hover:block bg-inverse-surface text-inverse-on-surface text-label-mono p-xs rounded shadow-lg z-20 whitespace-nowrap">ε=0.55</div></div><div class="relative h-full w-px hover:bg-primary/20 cursor-crosshair flex items-center justify-center"><div class="absolute bottom-[65%] hidden group-hover:block bg-inverse-surface text-inverse-on-surface text-label-mono p-xs rounded shadow-lg z-20 whitespace-nowrap">ε=0.62</div></div></div></div>
+<div class="bg-surface-container-low p-md rounded-sm border border-outline-variant mt-auto">
+<h4 class="text-body-md font-body-md font-semibold text-on-surface mb-xs flex items-center gap-sm">
+<span class="material-symbols-outlined text-[18px] text-primary">info</span>
+                            Analysis Conclusion
+                        </h4>
+<p class="text-body-sm font-body-sm text-on-surface-variant leading-relaxed">
+                            Empirical epsilon leakage remains well below the theoretical bound of ε=0.85 across all training epochs. The MIA accuracy of 51.8% confirms that the synthetic data generation process strongly resists membership inference, fulfilling strict privacy guarantees required for health data.
+                        </p>
+</div>
+</div>
+</div>
+</div>
+</main>
+
+
+</body></html>

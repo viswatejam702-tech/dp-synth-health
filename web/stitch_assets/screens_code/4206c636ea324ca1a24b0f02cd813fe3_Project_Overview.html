@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DP-Synth Health - Project Overview</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-container": "#006f62",
+                        "primary-container": "#283593",
+                        "on-surface": "#111d23",
+                        "on-primary-fixed-variant": "#303c9a",
+                        "error-container": "#ffdad6",
+                        "surface-tint": "#4955b3",
+                        "on-primary-fixed": "#000c62",
+                        "on-tertiary-container": "#f19700",
+                        "on-surface-variant": "#454652",
+                        "tertiary": "#3f2400",
+                        "inverse-on-surface": "#e6f3fb",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb865",
+                        "surface": "#f4faff",
+                        "on-background": "#111d23",
+                        "on-primary": "#ffffff",
+                        "tertiary-container": "#5d3700",
+                        "on-secondary-fixed-variant": "#005047",
+                        "surface-bright": "#f4faff",
+                        "outline-variant": "#c6c5d4",
+                        "surface-container-high": "#ddeaf2",
+                        "on-tertiary-fixed": "#2b1700",
+                        "surface-container-low": "#e9f6fd",
+                        "background": "#f4faff",
+                        "primary": "#0b1a7d",
+                        "on-primary-container": "#9aa5ff",
+                        "inverse-surface": "#263238",
+                        "on-tertiary-fixed-variant": "#663d00",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed": "#ffddba",
+                        "on-secondary-fixed": "#00201b",
+                        "on-error": "#ffffff",
+                        "secondary-container": "#94f0df",
+                        "outline": "#767683",
+                        "surface-container-highest": "#d7e4ec",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#dfe0ff",
+                        "secondary-fixed": "#97f3e2",
+                        "on-tertiary": "#ffffff",
+                        "surface-dim": "#cfdce4",
+                        "surface-container": "#e3f0f8",
+                        "inverse-primary": "#bcc2ff",
+                        "secondary": "#006b5e",
+                        "surface-variant": "#d7e4ec",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed-dim": "#7ad7c6",
+                        "primary-fixed-dim": "#bcc2ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin": "24px",
+                        "lg": "24px",
+                        "xs": "4px",
+                        "xl": "48px",
+                        "md": "16px",
+                        "gutter": "16px",
+                        "unit": "4px",
+                        "sm": "8px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-mono": ["JetBrains Mono"],
+                        "metric-lg": ["JetBrains Mono"],
+                        "headline-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["12px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-mono": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "metric-lg": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["26px", { "lineHeight": "32px", "fontWeight": "600" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-background h-full text-on-background flex overflow-hidden">
+<!-- SideNavBar -->
+<nav class="bg-surface dark:bg-inverse-surface fixed left-0 top-0 h-full w-[240px] border-r border-outline-variant dark:border-outline flat no shadows flex flex-col py-md z-20">
+<div class="px-lg pb-md">
+<h1 class="text-headline-md font-headline-md font-semibold text-primary dark:text-inverse-primary truncate" title="DP-Synth Health">DP-Synth Health</h1>
+<p class="text-body-sm font-body-sm text-on-surface-variant dark:text-on-surface mt-xs">V3.4 Privacy Core</p>
+</div>
+<div class="mt-md flex-1 overflow-y-auto">
+<ul class="space-y-sm">
+<!-- Active Item -->
+<li>
+<a class="bg-primary-container dark:bg-primary text-on-primary-container dark:text-on-primary rounded-lg mx-2 flex items-center px-md py-sm opacity-80 transition-opacity" href="#">
+<span class="material-symbols-outlined mr-md" data-icon="dashboard">dashboard</span>
+<span class="text-body-md font-body-md">Project Overview</span>
+</a>
+</li>
+<!-- Inactive Items -->
+<li>
+<a class="text-on-surface-variant dark:text-on-surface hover:bg-surface-container-high dark:hover:bg-surface-container rounded-lg mx-2 flex items-center px-md py-sm transition-colors duration-150" href="#">
+<span class="material-symbols-outlined mr-md" data-icon="settings_input_component">settings_input_component</span>
+<span class="text-body-md font-body-md">Generation Config</span>
+</a>
+</li>
+<li>
+<a class="text-on-surface-variant dark:text-on-surface hover:bg-surface-container-high dark:hover:bg-surface-container rounded-lg mx-2 flex items-center px-md py-sm transition-colors duration-150" href="#">
+<span class="material-symbols-outlined mr-md" data-icon="analytics">analytics</span>
+<span class="text-body-md font-body-md">Utility Metrics</span>
+</a>
+</li>
+<li>
+<a class="text-on-surface-variant dark:text-on-surface hover:bg-surface-container-high dark:hover:bg-surface-container rounded-lg mx-2 flex items-center px-md py-sm transition-colors duration-150" href="#">
+<span class="material-symbols-outlined mr-md" data-icon="security">security</span>
+<span class="text-body-md font-body-md">Privacy Validation</span>
+</a>
+</li>
+<li>
+<a class="text-on-surface-variant dark:text-on-surface hover:bg-surface-container-high dark:hover:bg-surface-container rounded-lg mx-2 flex items-center px-md py-sm transition-colors duration-150" href="#">
+<span class="material-symbols-outlined mr-md" data-icon="file_download">file_download</span>
+<span class="text-body-md font-body-md">Results &amp; Export</span>
+</a>
+</li>
+</ul>
+</div>
+<div class="px-md py-md mt-auto">
+<button class="w-full bg-primary-container text-on-primary-container rounded-lg py-sm text-body-md font-body-md font-medium hover:bg-surface-tint hover:text-on-primary transition-colors">Run Synthesis</button>
+</div>
+<div class="mt-xs border-t border-outline-variant pt-md">
+<ul class="space-y-sm">
+<li>
+<a class="text-on-surface-variant dark:text-on-surface hover:bg-surface-container-high dark:hover:bg-surface-container rounded-lg mx-2 flex items-center px-md py-sm transition-colors duration-150" href="#">
+<span class="material-symbols-outlined mr-md" data-icon="help">help</span>
+<span class="text-body-md font-body-md">Documentation</span>
+</a>
+</li>
+<li>
+<a class="text-on-surface-variant dark:text-on-surface hover:bg-surface-container-high dark:hover:bg-surface-container rounded-lg mx-2 flex items-center px-md py-sm transition-colors duration-150" href="#">
+<span class="material-symbols-outlined mr-md" data-icon="contact_support">contact_support</span>
+<span class="text-body-md font-body-md">Support</span>
+</a>
+</li>
+</ul>
+</div>
+</nav>
+<!-- Main Workspace Area -->
+<div class="flex-1 flex flex-col ml-[240px] w-[calc(100%-240px)] h-full overflow-hidden">
+<!-- TopAppBar -->
+<header class="bg-surface-container-lowest dark:bg-surface-container-highest docked full-width top-0 border-b border-outline-variant dark:border-outline flat no shadows flex justify-between items-center h-16 w-full px-lg z-10 shrink-0">
+<div class="flex items-center">
+<span class="text-headline-sm font-headline-sm font-bold text-primary dark:text-inverse-primary">Privacy Workbench</span>
+</div>
+<div class="flex items-center space-x-lg">
+<span class="text-label-mono font-label-mono text-on-surface-variant bg-surface-container px-sm py-xs rounded">Current Budget: ε=0.85</span>
+<div class="flex space-x-sm">
+<button class="text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors p-xs" onclick="this.style.transform='scale(0.99)'">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors p-xs" onclick="this.style.transform='scale(0.99)'">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors p-xs" onclick="this.style.transform='scale(0.99)'">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Content Canvas -->
+<main class="flex-1 overflow-y-auto p-lg bg-background">
+<div class="max-w-[1200px] mx-auto space-y-xl">
+<!-- Page Header -->
+<div>
+<h2 class="text-headline-lg font-headline-lg text-on-surface">Project Overview</h2>
+<p class="text-body-lg font-body-lg text-on-surface-variant mt-xs">High-level summary of synthesis performance and privacy constraints.</p>
+</div>
+<!-- Stats Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Stat Card 1 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-md">
+<p class="text-body-sm font-body-sm text-on-surface-variant uppercase tracking-wider mb-sm">Overall Utility Gap</p>
+<div class="flex items-baseline space-x-sm">
+<span class="text-metric-lg font-metric-lg text-primary">4.2%</span>
+<span class="text-label-mono font-label-mono text-secondary">(-0.3%)</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-sm border-t border-surface-variant pt-sm">Target: &lt; 5.0%</p>
+</div>
+<!-- Stat Card 2 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-md">
+<p class="text-body-sm font-body-sm text-on-surface-variant uppercase tracking-wider mb-sm">MIA Risk</p>
+<div class="flex items-baseline space-x-sm">
+<span class="text-metric-lg font-metric-lg text-on-surface">Low</span>
+<span class="text-label-mono font-label-mono text-on-surface-variant bg-surface-container px-xs rounded">(52% Acc)</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-sm border-t border-surface-variant pt-sm">Membership Inference Attack</p>
+</div>
+<!-- Stat Card 3 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-md">
+<p class="text-body-sm font-body-sm text-on-surface-variant uppercase tracking-wider mb-sm">Total Privacy Budget</p>
+<div class="flex items-baseline space-x-sm">
+<span class="text-metric-lg font-metric-lg text-primary">ε=1.0</span>
+<span class="text-label-mono font-label-mono text-on-surface-variant">δ=1e-5</span>
+</div>
+<div class="w-full bg-surface-container h-1 mt-sm rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[85%]"></div>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-xs text-right text-label-mono font-label-mono">85% utilized</p>
+</div>
+</div>
+<!-- Main Chart Area -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-md flex flex-col h-[400px]">
+<div class="flex justify-between items-center mb-md">
+<h3 class="text-headline-sm font-headline-sm text-on-surface">Privacy-Utility Frontier</h3>
+<div class="flex space-x-sm">
+<span class="flex items-center text-label-mono font-label-mono text-on-surface-variant text-xs"><div class="w-2 h-2 rounded-full bg-primary mr-xs"></div>Current Run</span>
+<span class="flex items-center text-label-mono font-label-mono text-on-surface-variant text-xs"><div class="w-2 h-2 rounded-full bg-outline mr-xs"></div>Baseline</span>
+</div>
+</div>
+<div class="flex-1 bg-surface-container-low rounded border border-outline-variant flex items-center justify-center relative overflow-hidden">
+<!-- Mock Chart Canvas -->
+<div class="absolute bottom-md left-md right-md top-md border-l border-b border-outline">
+<!-- X Axis Labels -->
+<div class="absolute -bottom-md w-full flex justify-between text-label-mono font-label-mono text-on-surface-variant text-[10px]">
+<span>ε=0.1</span>
+<span>ε=0.5</span>
+<span>ε=1.0</span>
+<span>ε=2.0</span>
+</div>
+<!-- Y Axis Labels -->
+<div class="absolute -left-md h-full flex flex-col justify-between text-label-mono font-label-mono text-on-surface-variant text-[10px] items-end pr-xs">
+<span>100%</span>
+<span>80%</span>
+<span>60%</span>
+</div>
+<!-- Mock Lines using SVG -->
+<svg class="w-full h-full absolute top-0 left-0" preserveaspectratio="none" viewbox="0 0 100 100">
+<path class="opacity-80" d="M 0 90 Q 20 60 50 30 T 100 10" fill="none" stroke="#0b1a7d" stroke-width="1.5"></path>
+<path class="opacity-50" d="M 0 95 Q 30 70 60 40 T 100 20" fill="none" stroke="#767683" stroke-dasharray="4 4" stroke-width="1"></path>
+<!-- Data Point -->
+<circle cx="45" cy="35" fill="#0b1a7d" r="2"></circle>
+<text class="text-label-mono font-label-mono text-[4px]" fill="#0b1a7d" x="48" y="32">Run 14</text>
+</svg>
+</div>
+</div>
+</div>
+<!-- Recent Runs Table -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg overflow-hidden">
+<div class="p-md border-b border-outline-variant flex justify-between items-center bg-surface-container-low">
+<h3 class="text-headline-sm font-headline-sm text-on-surface">Recent Runs</h3>
+<button class="text-body-sm font-body-sm text-primary hover:underline">View All</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-variant text-label-mono font-label-mono text-on-surface-variant border-b border-outline-variant">
+<th class="py-sm px-md font-medium">Run ID</th>
+<th class="py-sm px-md font-medium">Date</th>
+<th class="py-sm px-md font-medium">Model</th>
+<th class="py-sm px-md font-medium">Budget (ε)</th>
+<th class="py-sm px-md font-medium">Utility Score</th>
+<th class="py-sm px-md font-medium">Status</th>
+</tr>
+</thead>
+<tbody class="text-body-md font-body-md text-on-surface">
+<tr class="border-b border-surface-variant hover:bg-surface-container transition-colors">
+<td class="py-sm px-md text-label-mono font-label-mono">SYN-014</td>
+<td class="py-sm px-md">2023-10-27 14:32</td>
+<td class="py-sm px-md">DP-CTGAN v2</td>
+<td class="py-sm px-md">0.85</td>
+<td class="py-sm px-md">95.8%</td>
+<td class="py-sm px-md"><span class="bg-secondary-container text-on-secondary-container text-[10px] uppercase font-bold px-2 py-1 rounded-full">Complete</span></td>
+</tr>
+<tr class="border-b border-surface-variant hover:bg-surface-container transition-colors">
+<td class="py-sm px-md text-label-mono font-label-mono">SYN-013</td>
+<td class="py-sm px-md">2023-10-27 10:15</td>
+<td class="py-sm px-md">PATE-GAN</td>
+<td class="py-sm px-md">1.00</td>
+<td class="py-sm px-md">96.2%</td>
+<td class="py-sm px-md"><span class="bg-secondary-container text-on-secondary-container text-[10px] uppercase font-bold px-2 py-1 rounded-full">Complete</span></td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors">
+<td class="py-sm px-md text-label-mono font-label-mono">SYN-012</td>
+<td class="py-sm px-md">2023-10-26 16:45</td>
+<td class="py-sm px-md">DP-CTGAN v2</td>
+<td class="py-sm px-md">0.50</td>
+<td class="py-sm px-md">88.4%</td>
+<td class="py-sm px-md"><span class="bg-error-container text-on-error-container text-[10px] uppercase font-bold px-2 py-1 rounded-full">Failed</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>
